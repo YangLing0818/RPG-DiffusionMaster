@@ -136,7 +136,7 @@ resize-right==0.0.2
 rich==13.7.0
 rpds-py==0.15.2
 rsa==4.9
-safetensors==0.3.1
+safetensors==0.4.1
 scikit-image==0.21.0
 scipy==1.11.4
 seaborn==0.13.0
