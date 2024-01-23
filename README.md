@@ -36,7 +36,7 @@ This repository contains the official implementation of our [RPG](https://arxiv.
     <td width=100% style="border: none"><img src="__asset__/demo/object/icefire.png" style="width:100%"></td>
     </tr>
     <tr>
-    <td width="100%" style="border: none; text-align: center; word-wrap: break-word">Text prompt: A beautiful landscape with a river in the middle the left of the middle is in the evening and in the winter with a big iceberg and a small village while some people are skating on the river and some people are skiing, the right of the river is in the summer with a volcano in the morning and a small village while some people are playing.
+    <td width="100%" style="border: none; text-align: center; word-wrap: break-word">Text prompt: A beautiful landscape with a river in the middle the left of the river is in the evening and in the winter with a big iceberg and a small village while some people are skating on the river and some people are skiing, the right of the river is in the summer with a volcano in the morning and a small village while some people are playing.
 </td>
   </tr>
 </table>
@@ -45,7 +45,7 @@ This repository contains the official implementation of our [RPG](https://arxiv.
 
 ## 🚩 New Updates 
 
-**[2024.1]** Our main code along with the demo release, with diffusion models supports **SDXL**, **SD v2.0/2.1** **SD v1.4/1.5** ,  and we can produce good results utilizing GPT-4 and Gemini-Pro. We are also compatible with local MLLMs, but due to the limited context window and the size the model, it cannot always yield good results, we will try to fix this problem in the future.
+**[2024.1]** Our main code along with the demo release, with diffusion models supports **SDXL**, **SD v2.0/2.1** **SD v1.4/1.5** ,  and we can produce good results utilizing GPT-4 and Gemini-Pro. We are also compatible with local MLLMs, and we will continue to improve the results in the future.
 
 ## TODO
 
@@ -68,7 +68,7 @@ This repository contains the official implementation of our [RPG](https://arxiv.
     <td width=25% style="border: none"><img src="__asset__/demo/people/tea.png" style="width:100%"></td>
   <tr>
     <td width="25%" style="border: none; text-align: center; word-wrap: break-word">A girl with white ponytail and black dress are chatting with a blonde curly hair girl in a white dress in a cafe.</td>
-    <td width="25%" style="border: none; text-align: center; word-wrap: break-word">A twin-tail girl wearing a brwon cowboy hat and white shirt printed with apple, and blue denim jeans with knee boots,full body shot.</td>
+    <td width="25%" style="border: none; text-align: center; word-wrap: break-word">A twin-tail girl wearing a brwon cowboy hat and white shirt printed with apples, and blue denim jeans with knee boots,full body shot.</td>
     <td width="25%" style="border: none; text-align: center; word-wrap: break-word">A couple, the beautiful girl on the right, silver hair, braided ponytail, happy, dynamic, energetic, peaceful, the handsome young man on the right detailed gorgeous face, grin, blonde hair, enchanting</td>
     <td width="25%" style="border: none; text-align: center; word-wrap: break-word"> Two beautiful Chinese girls wearing cheongsams are drinking tea in the tea room, and a Chinese Landscape Painting is hanging on the wall, the girl on the left is black ponytail in red cheongsam, the girl on the right is white ponytail in orange cheongsam</td>
   </tr>
@@ -116,7 +116,7 @@ This repository contains the official implementation of our [RPG](https://arxiv.
     <td width=100% style="border: none"><img src="__asset__/demo/object/girl.png" style="width:100%"></td>
     </tr>
     <tr>
-    <td width="100%" style="border: none; text-align: center; word-wrap: break-word">A green twintail girl in orange dress is sitting on the sofa while a messy desk in under a big window on the left, while a lively aquarium is on the top right of the sofa, realistic style
+    <td width="100%" style="border: none; text-align: center; word-wrap: break-word">A green twintail girl in orange dress is sitting on the sofa while a messy desk under a big window on the left, a lively aquarium is on the top right of the sofa, realistic style
 </td>
   </tr>
 </table>
@@ -135,7 +135,7 @@ This repository contains the official implementation of our [RPG](https://arxiv.
     <td style="border: none"><img src="__asset__/demo/Controlnet/Pose_girl.png"></td>
     </tr>
     </table>
-Text prompt: A beautiful black hair girl with her eyes closed in champagne long sleeved formal dress standing in her bright room with delicate blue vases with pink roses on the left and Some white roses, filled with upgraded growth all around on the right.
+Text prompt: A beautiful black hair girl with her eyes closed in champagne long sleeved formal dress standing in her bright room with delicate blue vases with pink roses on the left and some white roses, filled with upgraded growth all around on the right.
 </details>
 
 <details open>
@@ -149,7 +149,7 @@ Text prompt: A beautiful black hair girl with her eyes closed in champagne long 
     <td style="border: none"><img src="__asset__/demo/Controlnet/Depth_valley.png", style="width: 1024px, height:1792px"></td>
     </tr>
     </table>
-Text prompt: Under the clear starry sky, clear river water flows in the mountains, and the lavender flower sea in front of me dances with the wind, A peaceful, beautiful, and harmonious atmosphere.
+Text prompt: Under the clear starry sky, clear river water flows in the mountains, and the lavender flower sea dances with the wind, a peaceful, beautiful, and harmonious atmosphere.
 </details>
 
 <details open>
@@ -194,7 +194,7 @@ cd ..
 
 In our experiments designed to attain state-of-the-art generative capabilities, we predominantly employ [SDXL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0),  [SDXL-Turbo](https://huggingface.co/stabilityai/sdxl-turbo), and [Playground v2](https://huggingface.co/playgroundai/playground-v2-1024px-aesthetic). To generate images of high fidelity across various styles, such as photorealism, cartoons, and anime, we judiciously incorporate certain models from [CIVITA](https://civitai.com/).  For images aspiring to photorealism, we advocate the use of [AlbedoBase XL](https://civitai.com/models/140737/albedobase-xl?modelVersionId=281176) , and [DreamShaper XL](https://civitai.com/models/112902/dreamshaper-xl?modelVersionId=251662). Moreover, we generalized our paradigm to SD v1.5 and SD v2.1 to accommodate a spectrum of requisites. All pertinent checkpoints are accessible within our Hugging Face spaces, with detailed descriptions found on the accompanying model cards.
 
-We fervently recommend the utilization of GPT-4 or Gemini-Pro for users of Multilingual Large Language Models (MLLMs), as they not only exhibit superior performance but also conserve graphic memory. Our research utilized the A100 80GB, although it should be compatible with other graphics processing units providing a minimum of 12GB of VRAM. For those interested in executing MLLMs locally, we suggest deploying [miniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4) or directly engaging with substantial Local LLMs such as [Llama2-13b-chat](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) and  [Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf). It should be noted that [Llama2-7b-chat](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) has been observed to underperform and fails to yield accurate split ratios.
+We fervently recommend the utilization of GPT-4 or Gemini-Pro for users of Multilingual Large Language Models (MLLMs), as they not only exhibit superior performance but also conserve graphic memory. According to our experiments, the minimum requirements of VRAM is 10GB with GPT-4, if you want to use local LLM, it would need more VRAM. For those interested in executing MLLMs locally, we suggest deploying [miniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4) or directly engaging with substantial Local LLMs such as [Llama2-13b-chat](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) and  [Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf). 
  
 
 ## Text-to-Image Generation
@@ -231,7 +231,7 @@ python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt'
 
 #### **4. Regional Generation with local LLMs**
 
-We advocate for the deployment of a foundational model endowed with upwards of 13 billion parameters to realize outcomes that meet our exacting standards.  However, this will inevitably extend the model loading duration and the inference time, accompanied by a marked elevation in graphical memory consumption.  We conduct experiments on theses three base models. For the model with 13 billion parameters, the preferred apparatus is the A100 80GB, for 70B model, the recommended devices are 8*A100 80GB, here we take llama2-13b-chat as an example, we can run:
+We advocate for the deployment of a foundational model endowed with upwards of 13 billion parameters to realize outcomes that meet our exacting standards.  However, this will inevitably extend the model loading duration and the inference time, accompanied by an elevation in graphical memory consumption.  We conduct experiments on theses three base models. Here we take llama2-13b-chat as an example, we can run:
 
 ```bash
 python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt' --model_name 'input your model name here' --version_number 0 --use_local --llm_path 'local_llms/ your llm name' 
