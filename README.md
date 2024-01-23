@@ -177,6 +177,9 @@ conda create -n RPG python==3.9
 conda activate RPG
 pip install -r requirements.txt
 mkdir repositories
+mkdir generated_imgs
+mkdir generated_imgs/demo_imgs
+mkdir models/Stable-diffusion
 cd repositories
 git clone https://github.com/Stability-AI/generative-models
 git clone https://github.com/Stability-AI/stablediffusion
@@ -184,6 +187,7 @@ git clone https://github.com/sczhou/CodeFormer
 git clone https://github.com/crowsonkb/k-diffusion
 git clone https://github.com/salesforce/BLIP
 mv stablediffusion stable-diffusion-stability-ai
+cd ..
 ```
 
 **Download Checkpoints and MLLMs configuration**
