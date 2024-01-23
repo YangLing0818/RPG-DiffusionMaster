@@ -29,7 +29,7 @@ This repository contains the official implementation of our [RPG](https://arxiv.
 
 
 
-**Abstract**: RPG is a powerful training-free paradigm utilizing  proprietary MLLMs (e.g., GPT-4, Gemini-Pro) and open-source local MLLMs (e.g., miniGPT-4) as the prompt recaptioner and region planner with our complementary regional diffusion to achieve SOTA text-to-image generation and editing. Our framework is very flexible and can generalize to arbitrary MLLM architectures and diffusion backbones. For MLLMs, despite the superior capabilities of proprietary MLLMs, it remains feasible to employ local MLLMs, such as MiniGPT-4, as a viable alternative. RPG is capable of generating image with super high resolutions, here is an example:
+**Abstract**: RPG is a powerful training-free paradigm that can utilize proprietary MLLMs (e.g., GPT-4, Gemini-Pro) or open-source local MLLMs (e.g., miniGPT-4) as the **prompt recaptioner and region planner** with our **complementary regional diffusion** to achieve SOTA text-to-image generation and editing. Our framework is very flexible and can generalize to arbitrary MLLM architectures and diffusion backbones. RPG is also capable of generating image with super high resolutions, here is an example:
 
 <table class="center">
     <tr>
@@ -45,7 +45,7 @@ This repository contains the official implementation of our [RPG](https://arxiv.
 
 ## 🚩 New Updates 
 
-**[2024.1]** Our main code along with the demo release, with diffusion models supports **SDXL**, **SD v2.0/2.1** **SD v1.4/1.5** ,  and we can produce good results utilizing GPT-4 and Gemini-Pro. We are also compatible with local MLLMs, and we will continue to improve the results in the future.
+**[2024.1]** Our main code along with the demo release, supporting different diffusion backbones (**SDXL**, **SD v2.0/2.1** **SD v1.4/1.5**), and one can reproduce our good results utilizing GPT-4 and Gemini-Pro. Our RPG is also compatible with local MLLMs, and we will continue to improve the results in the future.
 
 ## TODO
 
@@ -168,7 +168,7 @@ Text prompt: From left to right, an acient Chinese city in spring, summer, autum
 
 ## Preparations
 
-**Setup repository and conda environment**
+**1. Set Environment**
 
 ```bash
 git clone https://github.com/YangLing0818/RPG-DiffusionMaster
@@ -179,6 +179,10 @@ pip install -r requirements.txt
 mkdir repositories
 mkdir -p generated_imgs/demo_imgs
 mkdir models/Stable-diffusion
+```
+
+**2. Download Libraries**
+```bash
 cd repositories
 git clone https://github.com/Stability-AI/generative-models
 git clone https://github.com/Stability-AI/stablediffusion
@@ -188,20 +192,21 @@ git clone https://github.com/salesforce/BLIP
 mv stablediffusion stable-diffusion-stability-ai
 cd ..
 ```
-**Here we put diffusion models in models/Stable-diffusion/ and the generated images in generated_imgs/ .**
 
-**Download Checkpoints and MLLMs configuration**
+
+**3. Download Diffusion Models and MLLMs**
 
 In our experiments designed to attain state-of-the-art generative capabilities, we predominantly employ [SDXL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0),  [SDXL-Turbo](https://huggingface.co/stabilityai/sdxl-turbo), and [Playground v2](https://huggingface.co/playgroundai/playground-v2-1024px-aesthetic). To generate images of high fidelity across various styles, such as photorealism, cartoons, and anime, we judiciously incorporate certain models from [CIVITA](https://civitai.com/).  For images aspiring to photorealism, we advocate the use of [AlbedoBase XL](https://civitai.com/models/140737/albedobase-xl?modelVersionId=281176) , and [DreamShaper XL](https://civitai.com/models/112902/dreamshaper-xl?modelVersionId=251662). Moreover, we generalized our paradigm to SD v1.5 and SD v2.1 to accommodate a spectrum of requisites. All pertinent checkpoints are accessible within our [Hugging Face spaces](https://huggingface.co/BitStarWalkin/RPG_models), with detailed descriptions found on the accompanying model cards.
+Then we need move the downloaded diffusion model weights into the folder **models/Stable-diffusion/**, and please note that the generated images in generated_imgs/.
 
-We fervently recommend the utilization of GPT-4 or Gemini-Pro for users of Multi-mdoal Large Language Models (MLLMs), as they not only exhibit superior performance but also conserve graphic memory. According to our experiments, the minimum requirements of VRAM is 10GB with GPT-4, if you want to use local LLM, it would need more VRAM. For those interested in using MLLMs locally, we suggest deploying [miniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4) or directly engaging with substantial Local LLMs such as [Llama2-13b-chat](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) and  [Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf). 
+We recommend the utilization of GPT-4 or Gemini-Pro for users of Multilingual Large Language Models (MLLMs), as they not only exhibit superior performance but also reduce local memory. According to our experiments, the minimum requirements of VRAM is 10GB with GPT-4, if you want to use local LLM, it would need more VRAM. For those interested in using MLLMs locally, we suggest deploying [miniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4) or directly engaging with substantial Local LLMs such as [Llama2-13b-chat](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) and  [Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf). 
  
 
 ## Text-to-Image Generation
 
 #### 1. Quick Start
 
-For individuals equipped with constrained computational resources, we offer a bifurcated-version demonstration that partitions the image into two equal sized subregions. By making minor alterations to select functions within the diffusers library, one may achieve commendable outcomes utilizing base diffusion models such as SD v1.4, v1.5, v2.0, and v2.1, as mentioned in our paper. Additionally, you are welcome to apply your customized configurations to experiment with a graphics card possessing 8GB of VRAM. For an in-depth exposition, kindly refer to our [Example_Notebook](RegionalDiffusion_playground.ipynb).
+For individuals equipped with constrained computational resources, we here provide a simple notebook demonstration that partitions the image into two equal-sized subregions. By making minor alterations to select functions within the diffusers library, one may achieve commendable outcomes utilizing base diffusion models such as SD v1.4, v1.5, v2.0, and v2.1, as mentioned in our paper. Additionally, you can apply your customized configurations to experiment with a graphics card possessing 8GB of VRAM. For an in-depth exposition, kindly refer to our [Example_Notebook](RegionalDiffusion_playground.ipynb).
 
 #### **2. Demo** 
 
@@ -214,7 +219,7 @@ python RPG.py --demo
 You can find the results in outputs/txt2img-images which caches the generated history, or directly in generated_imgs/demo_imgs/
 
 #### **3. Regional Diffusion with GPT-4**
-Our approach automatically generates output without pre-storing MLLM responses, using Chain-of-Thought reasoning and quality in-context examples to obtain satisfactory results. Users only need to understand specific parameters. For example, to use GPT-4 as the planner, we can run:
+Our approach can automatically generates output without pre-storing MLLM responses, leveraging Chain-of-Thought reasoning and high-quality in-context examples to obtain satisfactory results. Users only need to understand specific parameters. For example, to use GPT-4 as the planner, we can run:
 
 ```bash
 python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt' --model_name 'input your model name here' --version_number 0 --api_key 'put your api_key here' --use_gpt
@@ -224,7 +229,7 @@ python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt'
 
 **--model_name** is the name of the model in the directory models/Stable-diffusion/
 
-**--version_number** is the class of our in-context examples used in generation. Our discoveries suggest that in varied scenarios, by employing pertinent in-context exemplars as few-shot samples, the planning capabilities of MLLMs can be substantially enhanced. For this case, we aim to synthesize a character bearing multiple attributes. We elect option 0, which is apt for a plan that binds multiple attributes.
+**--version_number** is the class of our in-context examples used in generation. Our experiments suggest that in various scenarios, by employing proper in-context exemplars as few-shot samples, the planning capabilities of MLLMs can be substantially enhanced. For this case, we aim to synthesize a character bearing multiple attributes. We elect option 0, which is apt for a plan that binds multiple attributes.
 
 **--api_key** is needed if you use GPT-4.
 
