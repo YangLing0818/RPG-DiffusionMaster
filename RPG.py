@@ -250,8 +250,6 @@ if __name__ == "__main__":
         width=width,
         )
         for i in range(len(image)):
-            # 获取当前时间戳
             timestamp = time.strftime('%Y%m%d_%H%M%S')
-            # 创建文件名
             file_name = f"{appendix}_image_{timestamp}.png"
             image[i].save(f"generated_imgs/{file_name}")

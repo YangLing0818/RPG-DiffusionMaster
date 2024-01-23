@@ -1,7 +1,11 @@
 ## Mastering Text-to-Image Diffusion: Recaptioning, Planning, and Generating with Multimodal LLMs
-This repository contains the official implementation of [RPG]().
+<div align="center">
+  <a href="https://arxiv.org/abs/2401.11708"><img src="https://img.shields.io/static/v1?label=Paper&message=Arxiv:RPG&color=red&logo=arxiv"></a> &ensp;
+</div>
 
-> [**Mastering Text-to-Image Diffusion: Recaptioning, Planning, and Generating with Multimodal LLMs**]()   
+This repository contains the official implementation of our [RPG](https://arxiv.org/abs/2401.11708).
+
+> [**Mastering Text-to-Image Diffusion: Recaptioning, Planning, and Generating with Multimodal LLMs**](https://arxiv.org/abs/2401.11708)   
 > [Ling Yang](https://yangling0818.github.io/), 
 > [Zhaochen Yu](https://github.com/BitCodingWalkin), 
 > [Chenlin Meng](https://cs.stanford.edu/~chenlin/),
@@ -248,7 +252,7 @@ It should be noted that we also introduce some new parameters into diffusion gen
 @article{yang2024mastering,
   title={Mastering Text-to-Image Diffusion: Recaptioning, Planning, and Generating with Multimodal LLMs},
   author={Yang, Ling and Yu, Zhaochen and Meng, Chenlin and Xu, Minkai and Ermon, Stefano and Cui, Bin},
-  journal={arXiv preprint arXiv:2211.11138},
+  journal={arXiv preprint arXiv:2401.11708},
   year={2024}
 }
 ```
