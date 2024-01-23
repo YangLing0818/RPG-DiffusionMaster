@@ -230,7 +230,7 @@ python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt'
 
 #### **4. Regional Diffusion with local LLMs**
 
-We recommend to use base models with over 13 billion parameters for high-quality results, but it will increase load times and graphical memory use at the same time. We have conduct experiments on three models,  Here we take llama2-13b-chat as an example, we can run:
+We recommend to use base models with over 13 billion parameters for high-quality results, but it will increase load times and graphical memory use at the same time. We have conducted experiments on three different sized models,  Here we take llama2-13b-chat as an example, we can run:
 
 ```bash
 python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt' --model_name 'input your model name here' --version_number 0 --use_local --llm_path 'local_llms/llama2-13b-chat' 
