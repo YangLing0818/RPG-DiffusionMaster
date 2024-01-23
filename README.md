@@ -1,5 +1,5 @@
 ## Mastering Text-to-Image Diffusion: Recaptioning, Planning, and Generating with Multimodal LLMs
-<div align="center">
+<div align="left">
   <a href="https://arxiv.org/abs/2401.11708"><img src="https://img.shields.io/static/v1?label=Paper&message=Arxiv:RPG&color=red&logo=arxiv"></a> &ensp;
 </div>
 
