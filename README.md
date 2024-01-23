@@ -207,7 +207,7 @@ If you have limited computing device, we presents a double-version demo which sp
 Note that we have uploaded detailed parameters of some examples in our paper, to make perfect reproduction, the only thing is to download the models we specify in [demo.py](template/demo.py) and run
 
 ```
-python main.py --demo
+python RPG.py --demo
 ```
 
 You can find the results in outputs/txt2img-images which caches the generated history, or directly in generated_imgs/demo_imgs/
@@ -217,7 +217,7 @@ You can find the results in outputs/txt2img-images which caches the generated hi
 One of the highlights of our work is that we don't need to cache the MLLMs/LLMs response in advance, our generation task is totally automatically conducted without even the need to copy and paste from MLLMs by leveraging our Chain-of-Thought and well-formated high quality in-context examples strategy. The only thing we need to do is to figure out  the function of each parameters. For example, to use GPT-4 as the planner, we can run
 
 ```bash
-python main.py --user_prompt 'A blonde hair girl with black suit and white skirt' --model_name 'input your model name here' --version_number 0 --api_key 'put your api_key here' --use_gpt
+python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt' --model_name 'input your model name here' --version_number 0 --api_key 'put your api_key here' --use_gpt
 ```
 
 **--user_prompt** is the original prompt that roughly summarize the content contained in the image
