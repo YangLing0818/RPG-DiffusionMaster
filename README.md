@@ -29,7 +29,7 @@ This repository contains the official implementation of our [RPG](https://arxiv.
 
 
 
-**Abstract**: RPG is a powerful training-free paradigm utilizing MLLMs (e.g., GPT-4 and Gemini-Pro) as the prompt recaptioner and region planner with our complementary regional diffusion to achieve SOTA text-to-image generation and editing. Our framework is very flexible and can generalize to arbitrary MLLM architectures and diffusion backbones. For MLLMs,  we  can also use local MLLMs (e.g., MiniGPT-4) as the alternative choice. RPG is capable of generating image with super high resolutions, here is an example:
+**Abstract**: RPG is a powerful training-free paradigm utilizing  proprietary MLLMs (e.g., GPT-4, Gemini-Pro) and open-source local MLLMs (e.g., miniGPT-4) as the prompt recaptioner and region planner with our complementary regional diffusion to achieve SOTA text-to-image generation and editing. Our framework is very flexible and can generalize to arbitrary MLLM architectures and diffusion backbones. For MLLMs, despite the superior capabilities of proprietary MLLMs, it remains feasible to employ local MLLMs, such as MiniGPT-4, as a viable alternative. RPG is capable of generating image with super high resolutions, here is an example:
 
 <table class="center">
     <tr>
@@ -69,7 +69,7 @@ This repository contains the official implementation of our [RPG](https://arxiv.
   <tr>
     <td width="25%" style="border: none; text-align: center; word-wrap: break-word">A girl with white ponytail and black dress are chatting with a blonde curly hair girl in a white dress in a cafe.</td>
     <td width="25%" style="border: none; text-align: center; word-wrap: break-word">A twin-tail girl wearing a brwon cowboy hat and white shirt printed with apple, and blue denim jeans with knee boots,full body shot.</td>
-    <td width="25%" style="border: none; text-align: center; word-wrap: break-word">A couple, the girl beautiful girl on the right, silver hair, braided ponytail, happy, dynamic, energetic, peaceful, the handsome young man on the right detailed gorgeous face, grin, blonde hair, enchanting</td>
+    <td width="25%" style="border: none; text-align: center; word-wrap: break-word">A couple, the beautiful girl on the right, silver hair, braided ponytail, happy, dynamic, energetic, peaceful, the handsome young man on the right detailed gorgeous face, grin, blonde hair, enchanting</td>
     <td width="25%" style="border: none; text-align: center; word-wrap: break-word"> Two beautiful Chinese girls wearing cheongsams are drinking tea in the tea room, and a Chinese Landscape Painting is hanging on the wall, the girl on the left is black ponytail in red cheongsam, the girl on the right is white ponytail in orange cheongsam</td>
   </tr>
 </table>
@@ -188,19 +188,20 @@ git clone https://github.com/salesforce/BLIP
 mv stablediffusion stable-diffusion-stability-ai
 cd ..
 ```
-Here we put diffusion models in models/Stable-diffusion/ and the generated images in generated_imgs/ .
+**Here we put diffusion models in models/Stable-diffusion/ and the generated images in generated_imgs/ .**
 
 **Download Checkpoints and MLLMs configuration**
 
-Here, we use [SDXL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0) , [SDXL-Turbo](https://huggingface.co/stabilityai/sdxl-turbo) , [Playground v2](https://huggingface.co/playgroundai/playground-v2-1024px-aesthetic) in our most experiments to achieve SOTA level generation, to further generate high-fidelity image in different style (e.g., photorealistic, cartoon, anime ) , we select some models from [CIVITA](https://civitai.com/). For photorealistic image, we recommand [AlbedoBase XL](https://civitai.com/models/140737/albedobase-xl?modelVersionId=281176) , and [DreamShaper XL](https://civitai.com/models/112902/dreamshaper-xl?modelVersionId=251662) . We also select models based on SD v1.5 and SD v2.1 to cater for different needs. The checkpoints are all available at our  [huggingface spaces](https://huggingface.co/BitStarWalkin/RPG_models) , you can see the model card for detail.
+In our experiments designed to attain state-of-the-art generative capabilities, we predominantly employ [SDXL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0),  [SDXL-Turbo](https://huggingface.co/stabilityai/sdxl-turbo), and [Playground v2](https://huggingface.co/playgroundai/playground-v2-1024px-aesthetic). To generate images of high fidelity across various styles, such as photorealism, cartoons, and anime, we judiciously incorporate certain models from [CIVITA](https://civitai.com/).  For images aspiring to photorealism, we advocate the use of [AlbedoBase XL](https://civitai.com/models/140737/albedobase-xl?modelVersionId=281176) , and [DreamShaper XL](https://civitai.com/models/112902/dreamshaper-xl?modelVersionId=251662). Moreover, we generalized our paradigm to SD v1.5 and SD v2.1 to accommodate a spectrum of requisites. All pertinent checkpoints are accessible within our Hugging Face spaces, with detailed descriptions found on the accompanying model cards.
 
-For MLLMs, we strongly suggest you to use GPT-4 or Gemini-Pro which is more powerful and save graphics memory. Our experiments are conducted on A100 80GB but should work on other cards with at least 12GB VRAM . If you want to try MLLMs locally, we suggest you to use [miniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4) or you can directly use large local LLMs like  [Llama2-13b-chat](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) and [Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf). For [Llama2-7b-chat](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), we find it perform poorly and cannot get correct split ratio. 
+We fervently recommend the utilization of GPT-4 or Gemini-Pro for users of Multilingual Large Language Models (MLLMs), as they not only exhibit superior performance but also conserve graphic memory. Our research utilized the A100 80GB, although it should be compatible with other graphics processing units providing a minimum of 12GB of VRAM. For those interested in executing MLLMs locally, we suggest deploying [miniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4) or directly engaging with substantial Local LLMs such as [Llama2-13b-chat](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) and  [Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf). It should be noted that [Llama2-7b-chat](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf) has been observed to underperform and fails to yield accurate split ratios.
+ 
 
 ## Text-to-Image Generation
 
 #### 1. Quick Start
 
-If you have limited computing device, we presents a double-version demo which split the image into two equally sized subregions . By simply modified some functions in diffusers library, we can get satisfactory results by using base diffusion models like SD v1.4/1.5/2.0/2.1 mentioned in our paper. You can also use your personalized settings to give it a try with a card of 8GB VRAM. See details in  our [Example_Notebook](RegionalDiffusion_playground.ipynb).
+For individuals equipped with constrained computational resources, we offer a bifurcated-version demonstration that partitions the image into two equal sized subregions. By making minor alterations to select functions within the diffusers library, one may achieve commendable outcomes utilizing base diffusion models such as SD v1.4, v1.5, v2.0, and v2.1, as mentioned in our paper. Additionally, you are welcome to apply your customized configurations to experiment with a graphics card possessing 8GB of VRAM. For an in-depth exposition, kindly refer to our [Example_Notebook](RegionalDiffusion_playground.ipynb).
 
 #### **2. Demo** 
 
@@ -214,7 +215,7 @@ You can find the results in outputs/txt2img-images which caches the generated hi
 
 #### **3. Regional Generation with GPT-4**
 
-One of the highlights of our work is that we don't need to cache the MLLMs/LLMs response in advance, our generation task is totally automatically conducted without even the need to copy and paste from MLLMs by leveraging our Chain-of-Thought and well-formated high quality in-context examples strategy. The only thing we need to do is to figure out  the function of each parameters. For example, to use GPT-4 as the planner, we can run
+A quintessential feature of our work is the absence of a prerequisite to pre-cache responses from MLLMs/LLMs. Our generative task unfolds in a wholly automated fashion, eschewing the necessity to manually transfer data from MLLMs, by capitalizing on our Chain-of-Thought reasoning paired with meticulously curated, high quality, in-context examples. The only task for the users is to have a comprehensive understanding of some specific parameters.  For example, to use GPT-4 as the planner, we can run:
 
 ```bash
 python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt' --model_name 'input your model name here' --version_number 0 --api_key 'put your api_key here' --use_gpt
@@ -224,13 +225,13 @@ python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt'
 
 **--model_name** is the name of the model in the directory models/Stable-diffusion/
 
-**--version_number** is the class of our in-context examples used in generation. We find that in different scenarios, if we use the relevant in-context examples as few-shot sample, the planing ability of the MLLMs can be further boost. In this example, we want to generate a girl with multiple attributes, here we choose 0 that fits for multi-attribute binding plan.
+**--version_number** is the class of our in-context examples used in generation. Our discoveries suggest that in varied scenarios, by employing pertinent in-context exemplars as few-shot samples, the planning capabilities of MLLMs can be substantially enhanced. For this case, we aim to synthesize a character bearing multiple attributes. We elect option 0, which is apt for a plan that binds multiple attributes.
 
 **--api_key** is needed if you use GPT-4.
 
 #### **4. Regional Generation with local LLMs**
 
-We recommend to use base model with more than 13B parameters to achieve satisfactory results. But it will take more time to load the model and inference, with the significant increase in graphic memory usage. We conduct experiments on theses three base models. For 13B model, the recommended device is A100 80GB, for 70B model, the recommended device is 8*A100 80GB, here we take llama2-13b-chat as an example, we can run
+We advocate for the deployment of a foundational model endowed with upwards of13 billion parameters to realize outcomes that meet our exacting standards.  However, this will inevitably extend the model loading duration and the inference time, accompanied by a marked elevation in graphical memory consumption.  We conduct experiments on theses three base models. For the model with 13 billion parameters, the preferred apparatus is the A100 80GB, for 70B model, the recommended devices are 8*A100 80GB, here we take llama2-13b-chat as an example, we can run:
 
 ```bash
 python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt' --model_name 'input your model name here' --version_number 0 --use_local --llm_path 'local_llms/ your llm name' 
@@ -246,9 +247,9 @@ Here we can also specify other usual parameters in diffusion model like:
 
 **--seed** control the seed to make the generation reproducible
 
-It should be noted that we also introduce some new parameters into diffusion generation:
+**It should be noted that we also introduce some new parameters into diffusion generation:**
 
-**--use_base** the function of this bool variable is to activate the base prompt in diffusion process. When we use base prompt, it means that we don't just directly take the combination of subregions as the latent, we use a base prompt that summarize the content contained in the image to get another latent and use the weighted sum of them to be the final results, which could help to solve the common entity missing issues in complex prompt generation tasks, and help to make the boundary of each subregions smooth and harmonious.
+**--use_base** the function of this boolean variable is to activate the base prompt in diffusion process. Utilizing the base prompt signifies that we avoid the direct amalgamation of subregions as the latent representation. Instead, we use a foundational prompt that summarizes the image's key components and obatin the overall structure latent of the image. We then compute the weighted aggregate of these latents to yield the conclusive output. This method is instrumental in addressing the problems like omission of entities in complicated prompt generation tasks, and it also contributes to refining the edges of each subregion, ensuring they are seamlessly integrated and resonate harmony.
 
 **--base_ratio** the weight of the base prompt latent, if too small, it is difficult to work, if too big, it will  confuse the composition and properties of subregions.  We conduct ablation experiment in our paper, see our paper for more detailed information and analysis.
 
