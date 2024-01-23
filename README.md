@@ -231,7 +231,7 @@ python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt'
 
 #### **4. Regional Generation with local LLMs**
 
-We advocate for the deployment of a foundational model endowed with upwards of13 billion parameters to realize outcomes that meet our exacting standards.  However, this will inevitably extend the model loading duration and the inference time, accompanied by a marked elevation in graphical memory consumption.  We conduct experiments on theses three base models. For the model with 13 billion parameters, the preferred apparatus is the A100 80GB, for 70B model, the recommended devices are 8*A100 80GB, here we take llama2-13b-chat as an example, we can run:
+We advocate for the deployment of a foundational model endowed with upwards of 13 billion parameters to realize outcomes that meet our exacting standards.  However, this will inevitably extend the model loading duration and the inference time, accompanied by a marked elevation in graphical memory consumption.  We conduct experiments on theses three base models. For the model with 13 billion parameters, the preferred apparatus is the A100 80GB, for 70B model, the recommended devices are 8*A100 80GB, here we take llama2-13b-chat as an example, we can run:
 
 ```bash
 python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt' --model_name 'input your model name here' --version_number 0 --use_local --llm_path 'local_llms/ your llm name' 
