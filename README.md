@@ -192,7 +192,7 @@ cd ..
 
 **Download Checkpoints and MLLMs configuration**
 
-In our experiments designed to attain state-of-the-art generative capabilities, we predominantly employ [SDXL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0),  [SDXL-Turbo](https://huggingface.co/stabilityai/sdxl-turbo), and [Playground v2](https://huggingface.co/playgroundai/playground-v2-1024px-aesthetic). To generate images of high fidelity across various styles, such as photorealism, cartoons, and anime, we judiciously incorporate certain models from [CIVITA](https://civitai.com/).  For images aspiring to photorealism, we advocate the use of [AlbedoBase XL](https://civitai.com/models/140737/albedobase-xl?modelVersionId=281176) , and [DreamShaper XL](https://civitai.com/models/112902/dreamshaper-xl?modelVersionId=251662). Moreover, we generalized our paradigm to SD v1.5 and SD v2.1 to accommodate a spectrum of requisites. All pertinent checkpoints are accessible within our Hugging Face spaces, with detailed descriptions found on the accompanying model cards.
+In our experiments designed to attain state-of-the-art generative capabilities, we predominantly employ [SDXL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0),  [SDXL-Turbo](https://huggingface.co/stabilityai/sdxl-turbo), and [Playground v2](https://huggingface.co/playgroundai/playground-v2-1024px-aesthetic). To generate images of high fidelity across various styles, such as photorealism, cartoons, and anime, we judiciously incorporate certain models from [CIVITA](https://civitai.com/).  For images aspiring to photorealism, we advocate the use of [AlbedoBase XL](https://civitai.com/models/140737/albedobase-xl?modelVersionId=281176) , and [DreamShaper XL](https://civitai.com/models/112902/dreamshaper-xl?modelVersionId=251662). Moreover, we generalized our paradigm to SD v1.5 and SD v2.1 to accommodate a spectrum of requisites. All pertinent checkpoints are accessible within our [Hugging Face spaces](https://huggingface.co/BitStarWalkin/RPG_models), with detailed descriptions found on the accompanying model cards.
 
 We fervently recommend the utilization of GPT-4 or Gemini-Pro for users of Multilingual Large Language Models (MLLMs), as they not only exhibit superior performance but also conserve graphic memory. According to our experiments, the minimum requirements of VRAM is 10GB with GPT-4, if you want to use local LLM, it would need more VRAM. For those interested in using MLLMs locally, we suggest deploying [miniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4) or directly engaging with substantial Local LLMs such as [Llama2-13b-chat](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) and  [Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf). 
  
@@ -213,9 +213,8 @@ python RPG.py --demo
 
 You can find the results in outputs/txt2img-images which caches the generated history, or directly in generated_imgs/demo_imgs/
 
-#### **3. Regional Generation with GPT-4**
-
-A quintessential feature of our work is the absence of a prerequisite to pre-cache responses from MLLMs/LLMs. Our generative task unfolds in a wholly automated fashion, eschewing the necessity to manually transfer data from MLLMs, by capitalizing on our Chain-of-Thought reasoning paired with meticulously curated, high quality, in-context examples. The only task for the users is to have a comprehensive understanding of some specific parameters.  For example, to use GPT-4 as the planner, we can run:
+#### **3. Regional Diffusion with GPT-4**
+Our approach automatically generates output without pre-storing MLLM responses, using Chain-of-Thought reasoning and quality in-context examples to obtain satisfactory results. Users only need to understand specific parameters. For example, to use GPT-4 as the planner, we can run:
 
 ```bash
 python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt' --model_name 'input your model name here' --version_number 0 --api_key 'put your api_key here' --use_gpt
@@ -229,12 +228,12 @@ python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt'
 
 **--api_key** is needed if you use GPT-4.
 
-#### **4. Regional Generation with local LLMs**
+#### **4. Regional Diffusion with local LLMs**
 
-We advocate for the deployment of a foundational model endowed with upwards of 13 billion parameters to realize outcomes that meet our exacting standards.  However, this will inevitably extend the model loading duration and the inference time, accompanied by an elevation in graphical memory consumption.  We conduct experiments on theses three base models. Here we take llama2-13b-chat as an example, we can run:
+We recommend to use base models with over 13 billion parameters for high-quality results, but it will increase load times and graphical memory use at the same time. We have conduct experiments on three models,  Here we take llama2-13b-chat as an example, we can run:
 
 ```bash
-python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt' --model_name 'input your model name here' --version_number 0 --use_local --llm_path 'local_llms/ your llm name' 
+python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt' --model_name 'input your model name here' --version_number 0 --use_local --llm_path 'local_llms/llama2-13b-chat' 
 ```
 
 In local version, we only need to clarify the local llm_path to use llm locally.
