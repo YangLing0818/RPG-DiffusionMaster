@@ -15,7 +15,7 @@ def extract_output(text):
     return output_match.group(1).strip() if output_match else None
 
 def GPT4(prompt,version,key):
-    url = "https://api.aigcbest.top/v1/chat/completions"
+    url = "https://api.openai.com/v1/chat/completions"
     api_key = key
     with open('template/template.txt', 'r') as f:
         template=f.readlines()
@@ -30,7 +30,7 @@ def GPT4(prompt,version,key):
     textprompt= f"{' '.join(template)} \n {' '.join(incontext_examples)} \n {user_textprompt}"
     
     payload = json.dumps({
-    "model": "gpt-4-all",
+    "model": "gpt-4-1106-preview", # we suggest to use the latest version of GPT, you can also use gpt-4-vision-preivew, see https://platform.openai.com/docs/models/ for details. 
     "messages": [
         {
             "role": "user",

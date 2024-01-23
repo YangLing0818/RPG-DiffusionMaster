@@ -1,5 +1,5 @@
 ## Mastering Text-to-Image Diffusion: Recaptioning, Planning, and Generating with Multimodal LLMs
-This repository contains the official implementation of [RPG]()
+This repository contains the official implementation of [RPG]().
 
 > [**Mastering Text-to-Image Diffusion: Recaptioning, Planning, and Generating with Multimodal LLMs**]()   
 > [Ling Yang](https://yangling0818.github.io/), 
@@ -8,7 +8,7 @@ This repository contains the official implementation of [RPG]()
 > [Minkai Xu](https://minkaixu.com/),
 > [Stefano Ermon](https://cs.stanford.edu/~ermon/), 
 > [Bin Cui](https://cuibinpku.github.io/) 
-> <br>Peking University, Stanford University, Pika Labs<br>
+> <br>**Peking University, Stanford University, Pika Labs**<br>
 
 ## Introduction
 
@@ -25,7 +25,7 @@ This repository contains the official implementation of [RPG]()
 
 
 
-It is a powerful training-free paradigm utilizing MLLMs (e.g., GPT-4 and Gemini-Pro)  as the prompt recaptioner and region planner with open source diffusion models to generate high text-alignment images in SOTA level. Our method is very flexible and can be generalized to all open source diffusion models. For MLLMs,  we  can also use local LLMs (e.g., MiniGPT-4) as the alternative choice.  We can generate image with super high resolution, here is an example:
+**Abstract**: RPG is a powerful training-free paradigm utilizing MLLMs (e.g., GPT-4 and Gemini-Pro) as the prompt recaptioner and region planner with our complementary regional diffusion to achieve SOTA text-to-image generation and editing. Our framework is very flexible and can generalize to arbitrary MLLM architectures and diffusion backbones. For MLLMs,  we  can also use local MLLMs (e.g., MiniGPT-4) as the alternative choice. RPG is capable of generating image with super high resolutions, here is an example:
 
 <table class="center">
     <tr>
@@ -45,7 +45,6 @@ It is a powerful training-free paradigm utilizing MLLMs (e.g., GPT-4 and Gemini-
 
 ## TODO
 
-- [ ] Refine the in-context examples and template library
 - [ ] Update Gradio demo
 - [ ] Release RPG for image editing
 - [ ] Release RPG v2 with ControlNet
@@ -168,32 +167,42 @@ Text prompt: From left to right, an acient Chinese city in spring, summer, autum
 **Setup repository and conda environment**
 
 ```bash
-git clone https://github.com/YangLing0818/BindDM
-cd RPG
+git clone https://github.com/YangLing0818/RPG-DiffusionMaster
+cd RPG-DiffusionMaster
 conda create -n RPG python==3.9
 conda activate RPG
 pip install -r requirements.txt
+cd repositories
+git clone https://github.com/Stability-AI/generative-models
+git clone https://github.com/Stability-AI/stablediffusion
+git clone https://github.com/sczhou/CodeFormer
+git clone https://github.com/crowsonkb/k-diffusion
+git clone https://github.com/salesforce/BLIP
 ```
 
 **Download Checkpoints and MLLMs configuration**
 
-Here, we use [SDXL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0) , [SDXL-Turbo](https://huggingface.co/stabilityai/sdxl-turbo) , [Playground v2](https://huggingface.co/playgroundai/playground-v2-1024px-aesthetic) in our most experiments to achieve SOTA level generation, to further generate high-fidelity image in different style (e.g., photorealistic, cartoon, anime ) , we select some models from [CIVITA](https://civitai.com/). For photorealistic image, we recommand [AlbedoBase XL](https://civitai.com/models/140737/albedobase-xl?modelVersionId=281176) , and [DreamShaper XL](https://civitai.com/models/112902/dreamshaper-xl?modelVersionId=251662) . We also select models based on SD v1.5 and SD v2.1 to cater for different needs. The checkpoints are all available at our  [huggingface spaces]() , you can see the model card for detail.
+Here, we use [SDXL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0) , [SDXL-Turbo](https://huggingface.co/stabilityai/sdxl-turbo) , [Playground v2](https://huggingface.co/playgroundai/playground-v2-1024px-aesthetic) in our most experiments to achieve SOTA level generation, to further generate high-fidelity image in different style (e.g., photorealistic, cartoon, anime ) , we select some models from [CIVITA](https://civitai.com/). For photorealistic image, we recommand [AlbedoBase XL](https://civitai.com/models/140737/albedobase-xl?modelVersionId=281176) , and [DreamShaper XL](https://civitai.com/models/112902/dreamshaper-xl?modelVersionId=251662) . We also select models based on SD v1.5 and SD v2.1 to cater for different needs. The checkpoints are all available at our  [huggingface spaces](https://huggingface.co/BitStarWalkin/RPG_models) , you can see the model card for detail.
 
-For MLLMs, we strongly suggest you to use GPT-4 or Gemini-Pro which is more powerful and save graphics memory. If you want to try MLLMs locally, we suggest you to use [miniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4) or you can directly use large local LLMs like  [Llama2-13b-chat](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) and [Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf). For [Llama2-7b-chat](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), we find it perform poorly and cannot get correct split ratio. 
+For MLLMs, we strongly suggest you to use GPT-4 or Gemini-Pro which is more powerful and save graphics memory. Our experiments are conducted on A100 80GB but should work on other cards with at least 12GB VRAM . If you want to try MLLMs locally, we suggest you to use [miniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4) or you can directly use large local LLMs like  [Llama2-13b-chat](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) and [Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf). For [Llama2-7b-chat](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), we find it perform poorly and cannot get correct split ratio. 
 
 ## Text-to-Image Generation
 
-#### **1. Demo** 
+#### 1. Quick Start
 
-Note that we have uploaded detailed parameters of some examples in our paper, to make perfect reproduction, the only thing is to download the models we specify in demo.py and run
+If you have limited computing device, we presents a double-version demo which split the image into two equally sized subregions . By simply modified some functions in diffusers library, we can get satisfactory results by using base diffusion models like SD v1.4/1.5/2.0/2.1 mentioned in our paper. You can also use your personalized settings to give it a try with a card of 8GB VRAM. See details in  our [Example_Notebook](RegionalDiffusion_playground.ipynb).
+
+#### **2. Demo** 
+
+Note that we have uploaded detailed parameters of some examples in our paper, to make perfect reproduction, the only thing is to download the models we specify in [demo.py](template/demo.py) and run
 
 ```
 python main.py --demo
 ```
 
-You can find the results in outputs/ which caches the generated history, or directly in generated_imgs/demo_imgs/
+You can find the results in outputs/txt2img-images which caches the generated history, or directly in generated_imgs/demo_imgs/
 
-#### **2. Regional Generation with GPT-4**
+#### **3. Regional Generation with GPT-4**
 
 One of the highlights of our work is that we don't need to cache the MLLMs/LLMs response in advance, our generation task is totally automatically conducted without even the need to copy and paste from MLLMs by leveraging our Chain-of-Thought and well-formated high quality in-context examples strategy. The only thing we need to do is to figure out  the function of each parameters. For example, to use GPT-4 as the planner, we can run
 
@@ -209,9 +218,9 @@ python main.py --user_prompt 'A blonde hair girl with black suit and white skirt
 
 **--api_key** is needed if you use GPT-4.
 
-**3. Regional Generation with local LLMs**
+#### **4. Regional Generation with local LLMs**
 
-We recommend to use base model with more than 13B parameters to achieve satisfactory results. But it will take more time to load the model and inference, with the significant increase in graphic memory usage. For 13B model, the recommended device is A100, for 70B model, the recommended device is 8*A100, here we take llama2-13b-chat as an example, we can run
+We recommend to use base model with more than 13B parameters to achieve satisfactory results. But it will take more time to load the model and inference, with the significant increase in graphic memory usage. We conduct experiments on theses three base models. For 13B model, the recommended device is A100 80GB, for 70B model, the recommended device is 8*A100 80GB, here we take llama2-13b-chat as an example, we can run
 
 ```bash
 python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt' --model_name 'input your model name here' --version_number 0 --use_local --llm_path 'local_llms/ your llm name' 
@@ -235,5 +244,11 @@ It should be noted that we also introduce some new parameters into diffusion gen
 
 
 # 📖BibTeX
-
-
+```
+@article{yang2024mastering,
+  title={Mastering Text-to-Image Diffusion: Recaptioning, Planning, and Generating with Multimodal LLMs},
+  author={Yang, Ling and Yu, Zhaochen and Meng, Chenlin and Xu, Minkai and Ermon, Stefano and Cui, Bin},
+  journal={arXiv preprint arXiv:2211.11138},
+  year={2024}
+}
+```

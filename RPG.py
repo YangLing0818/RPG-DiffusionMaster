@@ -224,6 +224,10 @@ if __name__ == "__main__":
         initialize(model_name='albedobaseXL_v20.safetensors')
         demo_version(demo_list)
     else:
+        if use_gpt:
+            appendix='gpt4'
+        elif use_local:
+            appendix='local'
         initialize(model_name=model_name)
         image=RPG(user_prompt=user_prompt,
         diffusion_model=model_name,
@@ -249,5 +253,5 @@ if __name__ == "__main__":
             # 获取当前时间戳
             timestamp = time.strftime('%Y%m%d_%H%M%S')
             # 创建文件名
-            file_name = f"image_{timestamp}.png"
+            file_name = f"{appendix}_image_{timestamp}.png"
             image[i].save(f"generated_imgs/{file_name}")
