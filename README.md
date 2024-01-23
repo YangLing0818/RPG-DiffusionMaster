@@ -177,8 +177,7 @@ conda create -n RPG python==3.9
 conda activate RPG
 pip install -r requirements.txt
 mkdir repositories
-mkdir generated_imgs
-mkdir generated_imgs/demo_imgs
+mkdir -p generated_imgs/demo_imgs
 mkdir models/Stable-diffusion
 cd repositories
 git clone https://github.com/Stability-AI/generative-models
@@ -189,6 +188,7 @@ git clone https://github.com/salesforce/BLIP
 mv stablediffusion stable-diffusion-stability-ai
 cd ..
 ```
+Here we put diffusion models in models/Stable-diffusion/ and the generated images in generated_imgs/ .
 
 **Download Checkpoints and MLLMs configuration**
 
