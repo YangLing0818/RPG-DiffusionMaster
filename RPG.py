@@ -229,8 +229,7 @@ if __name__ == "__main__":
         elif use_local:
             appendix='local'
         initialize(model_name=model_name)
-        image=RPG
-        (
+        image=RPG(
         user_prompt=user_prompt,
         diffusion_model=model_name,
         version=version,
