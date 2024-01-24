@@ -212,7 +212,7 @@ if __name__ == "__main__":
     api_key=opt.api_key # If you use GPT-4 or Gemini-Pro, you need to input your api key
     llm_path=opt.llm_path # If you use local LLM, you need to input the path of your local LLM
     use_base=opt.use_base # If you want to use base prompt, set True
-    base_ratio=0.3 # The weight of base prompt
+    base_ratio=opt.base_ratio # The weight of base prompt
     base_prompt=opt.base_prompt # The base prompt, if you don't input this, we will use the user prompt as the base prompt
     batch_size=opt.batch_size # The batch size of txt2img
     seed=opt.seed # The seed of txt2img
@@ -229,7 +229,9 @@ if __name__ == "__main__":
         elif use_local:
             appendix='local'
         initialize(model_name=model_name)
-        image=RPG(user_prompt=user_prompt,
+        image=RPG
+        (
+        user_prompt=user_prompt,
         diffusion_model=model_name,
         version=version,
         split_ratio=None,
@@ -240,7 +242,7 @@ if __name__ == "__main__":
         use_base=use_base,
         base_ratio=base_ratio,
         base_prompt=base_prompt,
-        batch_size=1,
+        batch_size=batch_size,
         seed=seed,
         demo=demo,
         use_personalized=False,
