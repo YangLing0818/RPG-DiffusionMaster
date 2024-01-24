@@ -229,9 +229,7 @@ if __name__ == "__main__":
         elif use_local:
             appendix='local'
         initialize(model_name=model_name)
-        image=RPG
-        (
-        user_prompt=user_prompt,
+        image=RPG(user_prompt=user_prompt,
         diffusion_model=model_name,
         version=version,
         split_ratio=None,
@@ -249,8 +247,7 @@ if __name__ == "__main__":
         cfg=cfg,
         steps=steps,
         height=height,
-        width=width,
-        )
+        width=width)
         for i in range(len(image)):
             timestamp = time.strftime('%Y%m%d_%H%M%S')
             file_name = f"{appendix}_image_{timestamp}.png"
