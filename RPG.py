@@ -92,9 +92,9 @@ def RPG(user_prompt,diffusion_model,version,split_ratio=None,key=None,use_gpt=Tr
         split_ratio=params['split ratio']
         if use_base:
             if base_prompt is None:
-                regional_prompt= user_prompt+'BREAK\n'+regional_prompt
+                regional_prompt= user_prompt+' BREAK\n'+regional_prompt
             else:
-                regional_prompt= base_prompt+'BREAK\n'+regional_prompt
+                regional_prompt= base_prompt+' BREAK\n'+regional_prompt
         
     # Regional settings:
     regional_settings = {
