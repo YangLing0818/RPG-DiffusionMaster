@@ -107,7 +107,7 @@ def RPG(user_prompt, diffusion_model, version, split_ratio=None, use_llm=True,ke
     global opt
 
     # Prompt for regional diffusion
-    if demo:# and opt.user_prompt != 'GRADIO':
+    if demo:
         regional_prompt=user_prompt
         #TODO: add personalized regional split and regional prompt 
     else:
@@ -136,7 +136,6 @@ def RPG(user_prompt, diffusion_model, version, split_ratio=None, use_llm=True,ke
         else:
             regional_prompt= user_prompt
         
-    # if opt.user_prompt == 'GRADIO' and timestamp != "": 
     if not demo and timestamp != "": 
         regional_data ={
                     'model': model_name,
@@ -454,7 +453,7 @@ def main_gradio(opt):
             ) 
 
     demo.queue(max_size=20)
-    port = 13533
+    port = 7860
     # print(f"Start a gradio server: http://0.0.0.0:{port}")
     demo.launch(server_name='0.0.0.0', server_port=port)
 
@@ -502,7 +501,6 @@ if __name__ == "__main__":
     height=opt.height
     width=opt.width
 
-    # if opt.user_prompt == 'GRADIO':
     if not demo:
         main_gradio(opt)
     elif opt.user_prompt != '':
