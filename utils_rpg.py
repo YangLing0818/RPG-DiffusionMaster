@@ -1,9 +1,5 @@
 import openai
 
-total_tokens = 4096
-max_output_tokens = 1024
-max_input_tokens = total_tokens - max_output_tokens
-
 from mllm import get_params_dict
 
 def GPT4_by_openapi(prompt, version, key, model_name="gpt-4", temperature=0.0):
@@ -21,8 +17,8 @@ def GPT4_by_openapi(prompt, version, key, model_name="gpt-4", temperature=0.0):
     
     textprompt= f"{' '.join(template)} \n {' '.join(incontext_examples)} \n {user_textprompt}"
     
-    # model_name = "gpt-4-1106-preview"
-    model_name = "gpt-4"
+    model_name = "gpt-4-1106-preview"
+    # model_name = "gpt-4"
     messages = [
                 {
                     "role": "user",
@@ -35,7 +31,6 @@ def GPT4_by_openapi(prompt, version, key, model_name="gpt-4", temperature=0.0):
         model=model_name,
         messages=messages,
         temperature=temperature,
-        max_tokens=max_output_tokens,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0,
@@ -46,7 +41,6 @@ def GPT4_by_openapi(prompt, version, key, model_name="gpt-4", temperature=0.0):
     text=obj['choices'][0]['message']['content']
 
     # Extract the split ratio and regional prompt
-
     return get_params_dict(text)
 
 style_list = [
