@@ -1,5 +1,4 @@
 import openai
-
 from mllm import get_params_dict
 
 def GPT4_by_openapi(prompt, version, key, model_name="gpt-4", temperature=0.0):
@@ -26,19 +25,31 @@ def GPT4_by_openapi(prompt, version, key, model_name="gpt-4", temperature=0.0):
                 }
             ]
             
-    print(f'waiting for GPT-4 api response')
-    obj = openai.ChatCompletion.create(
-        model=model_name,
-        messages=messages,
-        temperature=temperature,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0,
-        stop=[" Human:", " AI:"]
-    )            
+    print(f'waiting for GPT-4 api response_01_')
+    if openai.__version__ < '1.0.0':
+        response = openai.ChatCompletion.create(
+            model=model_name,
+            messages=messages,
+            temperature=temperature,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0,
+        )  
+        text = response['choices'][0]['message']['content']
+    else:          
+        from openai import OpenAI
+        client = OpenAI()
+        response = client.chat.completions.create(
+            model=model_name,
+            messages=messages,
+            temperature=temperature,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0,                    
+        )
+        text = response.choices[0].message.content          
 
-    print(f'GPT-4_by_openapi response__{obj}')
-    text=obj['choices'][0]['message']['content']
+    print(f'GPT-4_by_openapi response__{response}')
 
     # Extract the split ratio and regional prompt
     return get_params_dict(text)
@@ -114,7 +125,7 @@ model_name_list = [
             "model_name": "anything-v3-full.safetensors",
             "model_style_name": "anime style",
             "size": "7.7G",
-            "url": "https://civitai.com/models/81458/absolutereality",
+            "url": "https://huggingface.co/Linaqruf/anything-v3.0",
         },
         {
             "model_name": "disneyPixarCartoon_v10.safetensors",
