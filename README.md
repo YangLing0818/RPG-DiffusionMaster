@@ -49,8 +49,9 @@ This repository contains the official implementation of our [RPG](https://arxiv.
 
 ## TODO
 
-- [ ] Update Gradio demo
-- [ ] Release RPG for image editing
+- [ ] Update Gradio Demo
+- [ ] Release Self-Refined RPG
+- [ ] Release RPG for Image Editing
 - [ ] Release RPG v2 with ControlNet
 - [x] Release RPG v1
 
