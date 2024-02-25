@@ -41,14 +41,14 @@ Now, let's output the split ratio and regional prompt we get in the planning pro
 ### Output:
 Horizontal split ratio: 1;2;1
 Vertical split ratio: 1,(1,1); 2,(2,1); 1,(1,1)
-Split ratio: 1,1,1; 2,2,1; 1,1,1
+Final split ratio: 1,1,1; 2,2,1; 1,1,1
 Regional Prompt: 
-Window with sunlight filtering through, creating a warm, inviting atmosphere. BREAK
-An aquarium on the top right, teeming with colorful fish and aquatic plants, adding a serene and lively element to the room. BREAK
-A messy desk with scattered papers, pens, a laptop, and a small potted plant, indicating a lived-in space. BREAK
-Girl with black twin-tail hair, capturing her youthful and lively essence. BREAK
-The girl's orange dress, detailed with patterns or textures to bring out its vibrancy. BREAK
-Sofa, cozy and plush, complementing the girl's sitting posture.
+Window with sunlight filtering through, creating a warm, inviting atmosphere. BREAK 
+An aquarium on the top right, teeming with colorful fish and aquatic plants, adding a serene and lively element to the room. BREAK 
+A messy desk with scattered papers, pens, a laptop, and a small potted plant, indicating a lived-in space. BREAK 
+Girl with black twin-tail hair, capturing her youthful and lively essence. BREAK 
+The girl's orange dress, detailed with patterns or textures to bring out its vibrancy. BREAK 
+Sofa, cozy and plush, complementing the girl's sitting posture. 
 
 Caption: Bathed in soft morning light,a cozy nook features a steaming Starbucks latte on a rustic table beside an elegant vase of blooming roses,while a plush ragdoll cat purrs contentedly nearby,its eyes half-closed in blissful serenity.
 Let's think step by step:
@@ -57,13 +57,10 @@ Alright, let's break down your example into a detailed image layout plan using t
 "Bathed in soft morning light,a cozy nook features a steaming Starbucks latte on a rustic table beside an elegant vase of blooming roses,while a plush ragdoll cat purrs contentedly nearby,its eyes half-closed in blissful serenity."
 ### Key phrases identification:
 We identify three key phrases Starbucks latte (steaming),elegant vase (blooming roses), ragdoll cat (plush) each with only one attribute so we don't need to use hierarchical split.
-1. black hair twintail (head features of the girl)
-2. orange dress (clothes and body features of the girl)
-3. sofa
-4. messy desk
-5. a window
-6. an aquarium
-So we need to split the image into 6 subregions.
+1. Starbucks latte (steaming)
+2. elegant vase (blooming roses)
+3. ragdoll cat (plush)
+So we need to split the image into 3 subregions.
 ### Split Ratio Planning:
 #### Horizontal split ratio: None
 - In this cpation we don't need to split the image into horizontal rows.
@@ -87,8 +84,8 @@ Now, let's output the split ratio and regional prompt we get in the planning pro
 ### Output:
 Horizontal split ratio: None
 Vertical split ratio: 1,1,1
-Split ratio: 1,1,1
+Final split ratio: 1,1,1
 Regional Prompt: 
-The latte in the first column serves as a visual representation of relaxation and indulgence, inviting the viewer to imagine the rich aroma and taste. BREAK
-The roses in the second column provide a contrast in texture and color, enriching the visual experience with their intricate petals and vibrant hues. BREAK
+The latte in the first column serves as a visual representation of relaxation and indulgence, inviting the viewer to imagine the rich aroma and taste. BREAK 
+The roses in the second column provide a contrast in texture and color, enriching the visual experience with their intricate petals and vibrant hues. BREAK 
 The ragdoll cat in the third column offers a sense of companionship and peace, its relaxed posture and soft fur adding a tactile dimension to the image. 

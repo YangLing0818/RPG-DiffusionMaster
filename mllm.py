@@ -81,7 +81,7 @@ def local_llm(prompt,version,model_path=None):
     return get_params_dict(output)
 
 def get_params_dict(output_text):
-    split_ratio_marker = "Split ratio: "
+    split_ratio_marker = "Final split ratio: "
     regional_prompt_marker = "Regional Prompt: "
     output_text=extract_output(output_text)
     print(output_text)

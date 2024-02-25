@@ -1,7 +1,4 @@
 ## Mastering Text-to-Image Diffusion: Recaptioning, Planning, and Generating with Multimodal LLMs
-<div align="left">
-  <a href="https://arxiv.org/abs/2401.11708"><img src="https://img.shields.io/static/v1?label=Paper&message=Arxiv:RPG&color=red&logo=arxiv"></a> &ensp;
-</div>
 
 This repository contains the official implementation of our [RPG](https://arxiv.org/abs/2401.11708).
 
@@ -201,7 +198,7 @@ In our experiments designed to attain state-of-the-art generative capabilities, 
 Then we need move the downloaded diffusion model weights into the folder **models/Stable-diffusion/**, and please note that the generated images in generated_imgs/.
 
 We recommend the utilization of GPT-4 or Gemini-Pro for users of Multilingual Large Language Models (MLLMs), as they not only exhibit superior performance but also reduce local memory. According to our experiments, the minimum requirements of VRAM is 10GB with GPT-4, if you want to use local LLM, it would need more VRAM. For those interested in using MLLMs locally, we suggest deploying [miniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4) or directly engaging with substantial Local LLMs such as [Llama2-13b-chat](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) and  [Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf). 
- 
+
 
 ## Text-to-Image Generation
 
@@ -223,16 +220,68 @@ You can find the results in outputs/txt2img-images which caches the generated hi
 Our approach can automatically generates output without pre-storing MLLM responses, leveraging Chain-of-Thought reasoning and high-quality in-context examples to obtain satisfactory results. Users only need to understand specific parameters. For example, to use GPT-4 as the planner, we can run:
 
 ```bash
-python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt' --model_name 'input your model name here' --version_number 0 --api_key 'put your api_key here' --use_gpt
+--user_prompt 'A handsome young man with blonde curly hair and black suit with a black twintail girl in red cheongsam in the bar.' --model_name 'albedobaseXL_20.safetensors' --version_number 0 --api_key 'put your api key here' --use_gpt --use_base --base_prompt 'a young man and a girl are chatting in the bar' --base_ratio 0.3
 ```
 
 **--user_prompt** is the original prompt that roughly summarize the content contained in the image
 
 **--model_name** is the name of the model in the directory models/Stable-diffusion/
 
-**--version_number** is the class of our in-context examples used in generation. Our experiments suggest that in various scenarios, by employing proper in-context exemplars as few-shot samples, the planning capabilities of MLLMs can be substantially enhanced. For this case, we aim to synthesize a character bearing multiple attributes. We elect option 0, which is apt for a plan that binds multiple attributes.
+**--version_number** is the class of our in-context examples used in generation. Our experiments suggest that in various scenarios, by employing proper in-context exemplars as few-shot samples, the planning capabilities of MLLMs can be substantially enhanced. For this case, we aim to synthesize multiple characters bearing multiple attributes. We elect option 0, which is apt for a plan that binds multiple attributes.
 
 **--api_key** is needed if you use GPT-4.
+
+**--use_base**  activate base prompt
+
+**--base_prompt** set base prompt for the image, which is the sketch of the image
+
+**--base_ratio** is the weight of the base prompt
+
+There are also other common optional parameters:
+
+**--cfg** which is the context-free guidance scale
+
+**--steps** the steps to generate an image
+
+**--seed** control the seed to make the generation reproducible
+
+It should be noted that we introduce some important parameters: **--base_prompt & --base_ratio** 
+
+**Q: When should we activate --use_base? And how to set --base_prompt & --base_ratio properly ?**
+
+In our experiments, when you want to generate an image with **multiple entities with the same class** (e.g., two girls, three cats, a man and a girl), you should activate **--use_base** and set base prompt that includes the number of each class of entities in the image using **--base_prompt**. Another relevant parameter is **--base_ratio** which is the weight of the base prompt. According to our experiments, when base_ratio is in [0.25,0.45], the final results are better.  Here is the generated image for command above:
+
+And you will get an image similar to ours results as long as we have the same random seed:
+
+<table class="center">
+    <tr>
+    <td width=100% style="border: none"><img src="__asset__/demo/FAQs/same_class.png" style="width:100%"></td>
+    </tr>
+    <tr>
+    <td width="100%" style="border: none; text-align: center; word-wrap: break-word">Text prompt: A handsome young man with blonde curly hair and black suit  with a black twintail girl in red cheongsam in the bar.
+</td>
+  </tr>
+</table>
+
+On the other hand, when it comes to an image including **multiple  entities  with different classes**, there is no need to use base prompt, here is an example:
+
+```bash
+python RPG.py --user_prompt 'From left to right, bathed in soft morning light,a cozy nook features a steaming Starbucks latte on a rustic table beside an elegant vase of blooming roses,while a plush ragdoll cat purrs contentedly nearby,its eyes half-closed in blissful serenity.' --model_name 'albedobaseXL_20.safetensors' --version_number 1 --api_key 'put your api key here' --use_gpt
+```
+
+  And you will get an image similar to our results:
+
+<table class="center">
+    <tr>
+    <td width=100% style="border: none"><img src="__asset__/demo/FAQs/different_class.png" style="width:100%"></td>
+    </tr>
+    <tr>
+    <td width="100%" style="border: none; text-align: center; word-wrap: break-word">Text prompt: From left to right, bathed in soft morning light,a cozy nook features a steaming Starbucks latte on a rustic table beside an elegant vase of blooming roses,while a plush ragdoll cat purrs contentedly nearby,its eyes half-closed in blissful serenity.
+</td>
+  </tr>
+</table>
+
+It's important to know when should we use base_prompt, if these parameters are not set properly, we can not get satisfactory results. We have conducted ablation study about base prompt in our paper, you can check our paper for more information.
 
 #### **4. Regional Diffusion with local LLMs**
 
@@ -244,19 +293,9 @@ python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt'
 
 In local version, we only need to clarify the local llm_path to use llm locally.
 
-Here we can also specify other usual parameters in diffusion model like:
+**--use_local** activate local llm
 
-**--cfg** which is the context-free guidance scale
-
-**--steps** the steps to generate an image
-
-**--seed** control the seed to make the generation reproducible
-
-**It should be noted that we also introduce some new parameters into diffusion generation:**
-
-**--use_base** the function of this boolean variable is to activate the base prompt in diffusion process. Utilizing the base prompt signifies that we avoid the direct amalgamation of subregions as the latent representation. Instead, we use a foundational prompt that summarizes the image's key components and obatin the overall structure latent of the image. We then compute the weighted aggregate of these latents to yield the conclusive output. This method is instrumental in addressing the problems like omission of entities in complicated prompt generation tasks, and it also contributes to refining the edges of each subregion, ensuring they are seamlessly integrated and resonate harmony.
-
-**--base_ratio** the weight of the base prompt latent, if too small, it is difficult to work, if too big, it will  confuse the composition and properties of subregions.  We conduct ablation experiment in our paper, see our paper for more detailed information and analysis.
+**--llm_path** the path to local llms
 
 
 # 📖BibTeX

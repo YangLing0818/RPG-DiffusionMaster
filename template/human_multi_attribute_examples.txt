@@ -34,7 +34,7 @@ Now, let's output the split ratio and regional prompt we get in the planning pro
 ### Output:
 Horizontal split ratio: 1;1;1
 Vertical split ratio: None
-Split ratio: 1;1;1
+Final split ratio: 1;1;1
 Regional Prompt:  Lush green twintails cascade down, framing the girl's animated face with lively eyes and a subtle smile, accented by a few playful freckles BREAK 
 A vibrant red blouse, featuring ruffled sleeves and a cinched waist, adorned with delicate pearl buttons, radiates elegance BREAK 
 pleated blue skirt, knee-length, sways gracefully with each step, its fabric catching the light, paired with a slender white belt for a touch of sophistication.
@@ -76,8 +76,8 @@ Now, let's output the split ratio and regional prompt we get in the planning pro
 ### Output:
 Horizontal split ratio: 1;1
 Vertical split ratio: 1,(1,1); 1,(1,1)
-Split ratio: 1,1,1; 1,1,1
-Regional Prompt: White hair ponytail girl, focusing on her sleek, flowing hair and the subtle expression of engagement in her conversation. BREAK
-Blonde curly hair girl, emphasizing her vibrant curls and the lively sparkle in her eyes as she engages in the chat.. BREAK
-Her elegant black dress, highlighting the fabric's texture and any intricate details, like lace or embroidery. BREAK
+Final split ratio: 1,1,1; 1,1,1
+Regional Prompt: White hair ponytail girl, focusing on her sleek, flowing hair and the subtle expression of engagement in her conversation. BREAK 
+Blonde curly hair girl, emphasizing her vibrant curls and the lively sparkle in her eyes as she engages in the chat.. BREAK 
+Her elegant black dress, highlighting the fabric's texture and any intricate details, like lace or embroidery. BREAK 
 Her white dress, capturing its flowy silhouette, possibly with floral patterns or delicate folds to accentuate its elegance
