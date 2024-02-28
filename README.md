@@ -220,7 +220,7 @@ You can find the results in outputs/txt2img-images which caches the generated hi
 Our approach can automatically generates output without pre-storing MLLM responses, leveraging Chain-of-Thought reasoning and high-quality in-context examples to obtain satisfactory results. Users only need to understand specific parameters. For example, to use GPT-4 as the planner, we can run:
 
 ```bash
---user_prompt 'A handsome young man with blonde curly hair and black suit with a black twintail girl in red cheongsam in the bar.' --model_name 'albedobaseXL_20.safetensors' --version_number 0 --api_key 'put your api key here' --use_gpt --use_base --base_prompt 'a young man and a girl are chatting in the bar' --base_ratio 0.3
+python RPG.py --user_prompt 'A handsome young man with blonde curly hair and black suit with a black twintail girl in red cheongsam in the bar.' --model_name 'albedobaseXL_20.safetensors' --version_number 0 --api_key 'put your api key here' --use_gpt --use_base --base_prompt 'a young man and a girl are chatting in the bar' --base_ratio 0.3
 ```
 
 **--user_prompt** is the original prompt that roughly summarize the content contained in the image
