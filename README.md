@@ -229,7 +229,7 @@ python RPG.py --user_prompt 'A handsome young man with blonde curly hair and bla
 
 **--version_number** is the class of our in-context examples used in generation. Our experiments suggest that in various scenarios, by employing proper in-context exemplars as few-shot samples, the planning capabilities of MLLMs can be substantially enhanced. For this case, we aim to synthesize multiple characters bearing multiple attributes. We elect option 0, which is apt for a plan that binds multiple attributes.
 
-**--api_key** is needed if you use GPT-4.
+**--api_key** is needed if you use GPT-4
 
 **--use_base** activates base prompt
 
@@ -239,7 +239,7 @@ python RPG.py --user_prompt 'A handsome young man with blonde curly hair and bla
 
 There are also other common optional parameters:
 
-**--cfg** is the context-free guidance scale
+**--cfg** is the classifier-free guidance scale
 
 **--steps** is the steps to generate an image
 
@@ -293,9 +293,9 @@ python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt'
 
 In local version, we only need to clarify the local llm_path to use llm locally.
 
-**--use_local** activate local llm
+**--use_local** activates local llms
 
-**--llm_path** the path to local llms
+**--llm_path** is the path to local llms
 
 
 # 📖BibTeX
