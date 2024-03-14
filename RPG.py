@@ -196,7 +196,7 @@ if __name__ == "__main__":
     parser.add_argument('--base_prompt',default=None,type=str,help='the base prompt')
     parser.add_argument('--batch_size',default=1,type=int,help='the batch size of txt2img')
     parser.add_argument('--seed',default=1234,type=int,help='the seed of txt2img')
-    parser.add_argument('--cfg',default=5,type=float,help='context-free guidance scale')
+    parser.add_argument('--cfg',default=5,type=float,help='classifier-free guidance scale')
     parser.add_argument('--steps',default=20,type=int,help='the steps of txt2img')
     parser.add_argument('--height',default=1024,type=int,help='the height of the generated image')
     parser.add_argument('--width',default=1024,type=int,help='the width of the generated image')
