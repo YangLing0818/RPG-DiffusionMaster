@@ -223,7 +223,7 @@ Our approach can automatically generates output without pre-storing MLLM respons
 python RPG.py --user_prompt 'A handsome young man with blonde curly hair and black suit with a black twintail girl in red cheongsam in the bar.' --model_name 'albedobaseXL_20.safetensors' --version_number 0 --api_key 'put your api key here' --use_gpt --use_base --base_prompt 'a young man and a girl are chatting in the bar' --base_ratio 0.3
 ```
 
-**--user_prompt** is the original prompt that roughly summarize the content contained in the image
+**--user_prompt** is the original prompt that roughly summarize the content of the image
 
 **--model_name** is the name of the model in the directory models/Stable-diffusion/
 
@@ -231,19 +231,19 @@ python RPG.py --user_prompt 'A handsome young man with blonde curly hair and bla
 
 **--api_key** is needed if you use GPT-4.
 
-**--use_base**  activate base prompt
+**--use_base** activates base prompt
 
-**--base_prompt** set base prompt for the image, which is the sketch of the image
+**--base_prompt** sets base prompt for generation, which is the summary of the image
 
 **--base_ratio** is the weight of the base prompt
 
 There are also other common optional parameters:
 
-**--cfg** which is the context-free guidance scale
+**--cfg** is the context-free guidance scale
 
-**--steps** the steps to generate an image
+**--steps** is the steps to generate an image
 
-**--seed** control the seed to make the generation reproducible
+**--seed** controls the seed to make the generation reproducible
 
 It should be noted that we introduce some important parameters: **--base_prompt & --base_ratio** 
 
