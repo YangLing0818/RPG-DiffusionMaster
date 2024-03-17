@@ -194,8 +194,7 @@ cd ..
 
 **3. Download Diffusion Models and MLLMs**
 
-In our experiments designed to attain state-of-the-art generative capabilities, we predominantly employ [SDXL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0),  [SDXL-Turbo](https://huggingface.co/stabilityai/sdxl-turbo), and [Playground v2](https://huggingface.co/playgroundai/playground-v2-1024px-aesthetic). To generate images of high fidelity across various styles, such as photorealism, cartoons, and anime, we judiciously incorporate certain models from [CIVITA](https://civitai.com/).  For images aspiring to photorealism, we advocate the use of [AlbedoBase XL](https://civitai.com/models/140737/albedobase-xl?modelVersionId=281176) , and [DreamShaper XL](https://civitai.com/models/112902/dreamshaper-xl?modelVersionId=251662). Moreover, we generalized our paradigm to SD v1.5 and SD v2.1 to accommodate a spectrum of requisites. All pertinent checkpoints are accessible within our [Hugging Face spaces](https://huggingface.co/BitStarWalkin/RPG_models), with detailed descriptions found on the accompanying model cards.
-Then we need move the downloaded diffusion model weights into the folder **models/Stable-diffusion/**, and please note that the generated images in generated_imgs/.
+To attain SOTA generative capabilities, we mainly employ [SDXL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0),  [SDXL-Turbo](https://huggingface.co/stabilityai/sdxl-turbo), and [Playground v2](https://huggingface.co/playgroundai/playground-v2-1024px-aesthetic) as our base diffusion. To generate images of high fidelity across various styles, such as photorealism, cartoons, and anime, we incorporate the models from [CIVITA](https://civitai.com/).  For images aspiring to photorealism, we advocate the use of [AlbedoBase XL](https://civitai.com/models/140737/albedobase-xl?modelVersionId=281176) , and [DreamShaper XL](https://civitai.com/models/112902/dreamshaper-xl?modelVersionId=251662). Moreover, we generalize our paradigm to SD v1.5 and SD v2.1. All checkpoints are accessible within our [Hugging Face spaces](https://huggingface.co/BitStarWalkin/RPG_models), with detailed descriptions. After downloading model weights, we need to move the model weights into the folder `models/Stable-diffusion/`, and please note that the generated images would exist in `generated_imgs/`.
 
 We recommend the utilization of GPT-4 or Gemini-Pro for users of Multilingual Large Language Models (MLLMs), as they not only exhibit superior performance but also reduce local memory. According to our experiments, the minimum requirements of VRAM is 10GB with GPT-4, if you want to use local LLM, it would need more VRAM. For those interested in using MLLMs locally, we suggest deploying [miniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4) or directly engaging with substantial Local LLMs such as [Llama2-13b-chat](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) and  [Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf). 
 
@@ -214,7 +213,7 @@ Note that we have uploaded detailed parameters of some examples in our paper, to
 python RPG.py --demo
 ```
 
-You can find the results in outputs/txt2img-images which caches the generated history, or directly in generated_imgs/demo_imgs/
+You can find the results in `outputs/txt2img-images`, or directly in `generated_imgs/demo_imgs/`
 
 #### **3. Regional Diffusion with GPT-4**
 Our approach can automatically generates output without pre-storing MLLM responses, leveraging Chain-of-Thought reasoning and high-quality in-context examples to obtain satisfactory results. Users only need to understand specific parameters. For example, to use GPT-4 as the planner, we can run:
@@ -225,7 +224,7 @@ python RPG.py --user_prompt 'A handsome young man with blonde curly hair and bla
 
 **--user_prompt** is the original prompt that roughly summarize the content of the image
 
-**--model_name** is the name of the model in the directory models/Stable-diffusion/
+**--model_name** is the name of the model in the directory `models/Stable-diffusion/`
 
 **--version_number** is the class of our in-context examples used in generation. Our experiments suggest that in various scenarios, by employing proper in-context exemplars as few-shot samples, the planning capabilities of MLLMs can be substantially enhanced. For this case, we aim to synthesize multiple characters bearing multiple attributes. We elect option 0, which is apt for a plan that binds multiple attributes.
 
@@ -247,9 +246,9 @@ There are also other common optional parameters:
 
 It should be noted that we introduce some important parameters: **--base_prompt & --base_ratio** 
 
-**Q: When should we activate --use_base? And how to set --base_prompt & --base_ratio properly ?**
+**FAQ: When should we activate --use_base? And how to set --base_prompt & --base_ratio properly ?**
 
-In our experiments, when you want to generate an image with **multiple entities with the same class** (e.g., two girls, three cats, a man and a girl), you should activate **--use_base** and set base prompt that includes the number of each class of entities in the image using **--base_prompt**. Another relevant parameter is **--base_ratio** which is the weight of the base prompt. According to our experiments, when base_ratio is in [0.25,0.45], the final results are better.  Here is the generated image for command above:
+If you want to generate an image with **multiple entities with the same class** (e.g., two girls, three cats, a man and a girl), you should activate **--use_base** and set base prompt that includes the number of each class of entities in the image using **--base_prompt**. Another relevant parameter is **--base_ratio** which is the weight of the base prompt. According to our experiments, when base_ratio is in [0.25,0.45], the final results are better.  Here is the generated image for command above:
 
 And you will get an image similar to ours results as long as we have the same random seed:
 
