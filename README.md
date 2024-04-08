@@ -25,7 +25,6 @@ This repository contains the official implementation of our [RPG](https://arxiv.
 </table>
 
 
-
 **Abstract**: RPG is a powerful training-free paradigm that can utilize proprietary MLLMs (e.g., GPT-4, Gemini-Pro) or open-source local MLLMs (e.g., miniGPT-4) as the **prompt recaptioner and region planner** with our **complementary regional diffusion** to achieve SOTA text-to-image generation and editing. Our framework is very flexible and can generalize to arbitrary MLLM architectures and diffusion backbones. RPG is also capable of generating image with super high resolutions, here is an example:
 
 <table class="center">
@@ -44,12 +43,15 @@ This repository contains the official implementation of our [RPG](https://arxiv.
 
 **[2024.1]** Our main code along with the demo release, supporting different diffusion backbones (**SDXL**, **SD v2.0/2.1** **SD v1.4/1.5**), and one can reproduce our good results utilizing GPT-4 and Gemini-Pro. Our RPG is also compatible with local MLLMs, and we will continue to improve the results in the future.
 
+**[2024.4]** Our codebase has been updated based on [diffusers](https://github.com/huggingface/diffusers), it now supports both ckpts and diffusers of diffusion models. As for diffusion backbones, one can use **RegionalDiffusionPipeline** for base models like **SD v2.0/2.1** **SD v1.4/1.5**, and use **RegionalDiffusionXLPipeline** for SDXL.
+
 ## TODO
 
 - [ ] Update Gradio Demo
 - [ ] Release Self-Refined RPG
 - [ ] Release RPG for Image Editing
-- [ ] Release RPG v2 with ControlNet
+- [ ] Release RPG v3 with ControlNet
+- [x] Release RPG v2 with the support of diffusers
 - [x] Release RPG v1
 
 ## Gallery
@@ -174,29 +176,18 @@ cd RPG-DiffusionMaster
 conda create -n RPG python==3.9
 conda activate RPG
 pip install -r requirements.txt
-mkdir repositories
-mkdir -p generated_imgs/demo_imgs
-mkdir models/Stable-diffusion
+git clone https://github.com/huggingface/diffusers
 ```
 
-**2. Download Libraries**
-```bash
-cd repositories
-git clone https://github.com/Stability-AI/generative-models
-git clone https://github.com/Stability-AI/stablediffusion
-git clone https://github.com/sczhou/CodeFormer
-git clone https://github.com/crowsonkb/k-diffusion
-git clone https://github.com/salesforce/BLIP
-mv stablediffusion stable-diffusion-stability-ai
-cd ..
-```
+**2. Download Diffusion Models and MLLMs**
 
-
-**3. Download Diffusion Models and MLLMs**
-
-To attain SOTA generative capabilities, we mainly employ [SDXL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0),  [SDXL-Turbo](https://huggingface.co/stabilityai/sdxl-turbo), and [Playground v2](https://huggingface.co/playgroundai/playground-v2-1024px-aesthetic) as our base diffusion. To generate images of high fidelity across various styles, such as photorealism, cartoons, and anime, we incorporate the models from [CIVITA](https://civitai.com/).  For images aspiring to photorealism, we advocate the use of [AlbedoBase XL](https://civitai.com/models/140737/albedobase-xl?modelVersionId=281176) , and [DreamShaper XL](https://civitai.com/models/112902/dreamshaper-xl?modelVersionId=251662). Moreover, we generalize our paradigm to SD v1.5 and SD v2.1. All checkpoints are accessible within our [Hugging Face spaces](https://huggingface.co/BitStarWalkin/RPG_models), with detailed descriptions. After downloading model weights, we need to move the model weights into the folder `models/Stable-diffusion/`, and please note that the generated images would exist in `generated_imgs/`.
+To attain SOTA generative capabilities, we mainly employ [SDXL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0),  [SDXL-Turbo](https://huggingface.co/stabilityai/sdxl-turbo), and [Playground v2](https://huggingface.co/playgroundai/playground-v2-1024px-aesthetic) as our base diffusion. To generate images of high fidelity across various styles, such as photorealism, cartoons, and anime, we incorporate the models from [CIVITA](https://civitai.com/).  For images aspiring to photorealism, we advocate the use of [AlbedoBase XL](https://civitai.com/models/140737/albedobase-xl?modelVersionId=281176) , and [DreamShaper XL](https://civitai.com/models/112902/dreamshaper-xl?modelVersionId=251662). Moreover, we generalize our paradigm to SD v1.5 and SD v2.1. All checkpoints are accessible within our [Hugging Face spaces](https://huggingface.co/BitStarWalkin/RPG_models), with detailed descriptions. 
 
 We recommend the utilization of GPT-4 or Gemini-Pro for users of Multilingual Large Language Models (MLLMs), as they not only exhibit superior performance but also reduce local memory. According to our experiments, the minimum requirements of VRAM is 10GB with GPT-4, if you want to use local LLM, it would need more VRAM. For those interested in using MLLMs locally, we suggest deploying [miniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4) or directly engaging with substantial Local LLMs such as [Llama2-13b-chat](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) and  [Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf). 
+
+**⭐⭐⭐New Features⭐⭐⭐**
+
+We now support [diffusers](https://github.com/huggingface/diffusers), and we will continue to update our method with different architectures like [Stable Cascade](https://github.com/Stability-AI/StableCascade), [Stable Diffusion 3](https://stability.ai/news/stable-diffusion-3). 
 
 
 ## Text-to-Image Generation
@@ -205,50 +196,70 @@ We recommend the utilization of GPT-4 or Gemini-Pro for users of Multilingual La
 
 For individuals equipped with constrained computational resources, we here provide a simple notebook demonstration that partitions the image into two equal-sized subregions. By making minor alterations to select functions within the diffusers library, one may achieve commendable outcomes utilizing base diffusion models such as SD v1.4, v1.5, v2.0, and v2.1, as mentioned in our paper. Additionally, you can apply your customized configurations to experiment with a graphics card possessing 8GB of VRAM. For an in-depth exposition, kindly refer to our [Example_Notebook](RegionalDiffusion_playground.ipynb).
 
-#### **2. Demo** 
+#### **2. Regional Diffusion with GPT-4**
+Our method can automatically generates output without pre-storing MLLM responses, leveraging Chain-of-Thought reasoning and high-quality in-context examples to obtain satisfactory results. Users only need to specify some parameters. For example, to use GPT-4 as the region planner, we can run the code below, contained in the [RPG.py](RPG.py):
 
-Note that we have uploaded detailed parameters of some examples in our paper, to make perfect reproduction, the only thing is to download the models we specify in [demo.py](template/demo.py) and run
-
+```python
+from RegionalDiffusion_base import RegionalDiffusionPipeline
+from RegionalDiffusion_xl import RegionalDiffusionXLPipeline
+from diffusers.schedulers import KarrasDiffusionSchedulers,DPMSolverMultistepScheduler
+from mllm import local_llm,GPT4
+import torch
+# If you want to use single ckpt, use this pipeline, remeber to set the path to your ckpt
+pipe = RegionalDiffusionXLPipeline.from_single_file("path to your ckpt",torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
+# If you want to use diffusers, use this pipeline, remeber to set the path to your diffusers
+# pipe = RegionalDiffusionPipeline.from_pretrained("path to your diffusers",torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
+pipe.to("cuda")
+pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config,use_karras_sigmas=True)
+pipe.enable_xformers_memory_efficient_attention()
+## User input
+prompt= ' A handsome young man with blonde curly hair and black suit  with a black twintail girl in red cheongsam in the bar.'
+para_dict = GPT4(prompt,key='...Put your api-key here...')
+## MLLM based split generation results
+split_ratio = para_dict['Final split ratio']
+regional_prompt = para_dict['Regional Prompt']
+negative_prompt = "" # negative_prompt, 
+images = pipe(
+    prompt=regional_prompt,
+    split_ratio=split_ratio, # The ratio of the regional prompt, the number of prompts is the same as the number of regions
+    batch_size = 1, #batch size
+    base_ratio = 0.5, # The ratio of the base prompt    
+    base_prompt= prompt,       
+    num_inference_steps=20, # sampling step
+    height = 1024, 
+    negative_prompt=negative_prompt, # negative prompt
+    width = 1024, 
+    seed = None,# random seed
+    guidance_scale = 7.0
+).images[0]
+images.save("test.png")
 ```
-python RPG.py --demo
-```
 
-You can find the results in `outputs/txt2img-images`, or directly in `generated_imgs/demo_imgs/`
+**prompt** is the original prompt that roughly summarize the content of the image
 
-#### **3. Regional Diffusion with GPT-4**
-Our approach can automatically generates output without pre-storing MLLM responses, leveraging Chain-of-Thought reasoning and high-quality in-context examples to obtain satisfactory results. Users only need to understand specific parameters. For example, to use GPT-4 as the planner, we can run:
+**base_prompt** sets base prompt for generation, which is the summary of the image, here we set the base_prompt as the original input prompt by default
 
-```bash
-python RPG.py --user_prompt 'A handsome young man with blonde curly hair and black suit with a black twintail girl in red cheongsam in the bar.' --model_name 'albedobaseXL_20.safetensors' --version_number 0 --api_key 'put your api key here' --use_gpt --use_base --base_prompt 'a young man and a girl are chatting in the bar' --base_ratio 0.3
-```
-
-**--user_prompt** is the original prompt that roughly summarize the content of the image
-
-**--model_name** is the name of the model in the directory `models/Stable-diffusion/`
-
-**--version_number** is the class of our in-context examples used in generation. Our experiments suggest that in various scenarios, by employing proper in-context exemplars as few-shot samples, the planning capabilities of MLLMs can be substantially enhanced. For this case, we aim to synthesize multiple characters bearing multiple attributes. We elect option 0, which is apt for a plan that binds multiple attributes.
-
-**--api_key** is needed if you use GPT-4
-
-**--use_base** activates base prompt
-
-**--base_prompt** sets base prompt for generation, which is the summary of the image
-
-**--base_ratio** is the weight of the base prompt
+**base_ratio** is the weight of the base prompt
 
 There are also other common optional parameters:
 
-**--cfg** is the classifier-free guidance scale
+**guidance_scale** is the classifier-free guidance scale
 
-**--steps** is the steps to generate an image
+**num_inference_steps** is the steps to generate an image
 
-**--seed** controls the seed to make the generation reproducible
+**seed** controls the seed to make the generation reproducible
 
-It should be noted that we introduce some important parameters: **--base_prompt & --base_ratio** 
+It should be noted that we introduce some important parameters: **base_prompt & base_ratio** 
 
-**FAQ: When should we activate --use_base? And how to set --base_prompt & --base_ratio properly ?**
+After adding your **prompt and api-key**, and setting your **path to downloaded diffusion model**, just run the following command and get the results:
 
-If you want to generate an image with **multiple entities with the same class** (e.g., two girls, three cats, a man and a girl), you should activate **--use_base** and set base prompt that includes the number of each class of entities in the image using **--base_prompt**. Another relevant parameter is **--base_ratio** which is the weight of the base prompt. According to our experiments, when base_ratio is in [0.25,0.45], the final results are better.  Here is the generated image for command above:
+```
+python RPG.py
+```
+
+**FAQ: How to set --base_prompt & --base_ratio properly ?**
+
+If you want to generate an image with **multiple entities with the same class** (e.g., two girls, three cats, a man and a girl), you should use **base prompt** and set base prompt that includes the number of each class of entities in the image using **base_prompt**. Another relevant parameter is **base_ratio** which is the weight of the base prompt. According to our experiments, when base_ratio is in [0.35,0.55], the final results are better.  Here is the generated image for command above:
 
 And you will get an image similar to ours results as long as we have the same random seed:
 
@@ -265,7 +276,37 @@ And you will get an image similar to ours results as long as we have the same ra
 On the other hand, when it comes to an image including **multiple  entities  with different classes**, there is no need to use base prompt, here is an example:
 
 ```bash
-python RPG.py --user_prompt 'From left to right, bathed in soft morning light,a cozy nook features a steaming Starbucks latte on a rustic table beside an elegant vase of blooming roses,while a plush ragdoll cat purrs contentedly nearby,its eyes half-closed in blissful serenity.' --model_name 'albedobaseXL_20.safetensors' --version_number 1 --api_key 'put your api key here' --use_gpt
+from RegionalDiffusion_base import RegionalDiffusionPipeline # base model means sdv1.4/sdv1.5/sdv2.1
+from RegionalDiffusion_xl import RegionalDiffusionXLPipeline #XL model means sdxl/sdxl-turbo
+from diffusers.schedulers import KarrasDiffusionSchedulers,DPMSolverMultistepScheduler
+from mllm import local_llm,GPT4
+import torch
+# If you want to use single ckpt, use this pipeline, remeber to set the path to your ckpt
+pipe = RegionalDiffusionXLPipeline.from_single_file("path to your ckpt",torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
+# #If you want to use diffusers, use this pipeline, remeber to set the path to your diffusers
+# pipe = RegionalDiffusionPipeline.from_pretrained("path to your diffusers",torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
+pipe.to("cuda")
+pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config,use_karras_sigmas=True)
+pipe.enable_xformers_memory_efficient_attention()
+prompt= 'From left to right, bathed in soft morning light,a cozy nook features a steaming Starbucks latte on a rustic table beside an elegant vase of blooming roses,while a plush ragdoll cat purrs contentedly nearby,its eyes half-closed in blissful serenity.'
+para_dict = GPT4(prompt,key='your key')
+split_ratio = para_dict['Final split ratio']
+regional_prompt = para_dict['Regional Prompt']
+negative_prompt = ""
+images = pipe(
+    prompt=regional_prompt,
+    split_ratio=split_ratio, # The ratio of the regional prompt, the number of prompts is the same as the number of regions, and the number of prompts is the same as the number of regions
+    batch_size = 1, #batch size
+    base_ratio = 0.5, # The ratio of the base prompt    
+    base_prompt= None, # If the base_prompt is None, the base_ratio will not work
+    num_inference_steps=20, # sampling step
+    height = 1024, 
+    negative_prompt=negative_prompt, # negative prompt
+    width = 1024, 
+    seed = None,# random seed
+    guidance_scale = 7.0
+).images[0]
+images.save("test.png")
 ```
 
   And you will get an image similar to our results:
@@ -280,21 +321,51 @@ python RPG.py --user_prompt 'From left to right, bathed in soft morning light,a 
   </tr>
 </table>
 
-It's important to know when should we use base_prompt, if these parameters are not set properly, we can not get satisfactory results. We have conducted ablation study about base prompt in our paper, you can check our paper for more information.
+It's important to know when should we use **base_prompt**, if these parameters are not set properly, we can not get satisfactory results. We have conducted ablation study about base prompt in our paper, you can check our paper for more information.
 
-#### **4. Regional Diffusion with local LLMs**
+#### **3. Regional Diffusion with local LLMs**
 
 We recommend to use base models with over 13 billion parameters for high-quality results, but it will increase load times and graphical memory use at the same time. We have conducted experiments on three different sized models,  Here we take llama2-13b-chat as an example, we can run:
 
 ```bash
-python RPG.py --user_prompt 'A blonde hair girl with black suit and white skirt' --model_name 'input your model name here' --version_number 0 --use_local --llm_path 'local_llms/llama2-13b-chat' 
+from RegionalDiffusion_base import RegionalDiffusionPipeline
+from RegionalDiffusion_xl import RegionalDiffusionXLPipeline
+from diffusers.schedulers import KarrasDiffusionSchedulers,DPMSolverMultistepScheduler
+from mllm import local_llm,GPT4
+import torch
+# If you want to use single ckpt, use this pipeline
+pipe = RegionalDiffusionXLPipeline.from_single_file("path to your ckpt",torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
+# If you want to use diffusers, use this pipeline
+# pipe = RegionalDiffusionPipeline.from_pretrained("path to your diffusers",torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
+pipe.to("cuda")
+pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config,use_karras_sigmas=True)
+pipe.enable_xformers_memory_efficient_attention()
+prompt= 'Two girls are chatting in the cafe.'
+para_dict = local_llm(prompt,model_path='path to your model') 
+split_ratio = para_dict['Final split ratio']
+regional_prompt = para_dict['Regional Prompt']
+negative_prompt = ""
+images = pipe(
+    prompt=regional_prompt,
+    split_ratio=split_ratio, # The ratio of the regional prompt, the number of prompts is the same as the number of regions, and the number of prompts is the same as the number of regions
+    batch_size = 1, #batch size
+    base_ratio = 0.5, # The ratio of the base prompt    
+    base_prompt= prompt,       
+    num_inference_steps=20, # sampling step
+    height = 1024, 
+    negative_prompt=negative_prompt, # negative prompt
+    width = 1024, 
+    seed = 1234,# random seed
+    guidance_scale = 7.0
+).images[0]
+images.save("test.png")
 ```
 
-In local version, we only need to clarify the local llm_path to use llm locally.
+In local version, after adding your prompt and setting your path to diffusion model and your path to the local MLLM/LLM, just the command below to get the results:
 
-**--use_local** activates local llms
-
-**--llm_path** is the path to local llms
+```
+python RPG.py 
+```
 
 
 # 📖BibTeX
@@ -308,5 +379,5 @@ In local version, we only need to clarify the local llm_path to use llm locally.
 ```
 
 # Acknowledgements
-Our RPG is a general MLLM-controlled text-to-image generation/editing framework, which is builded upon several solid works. Thanks to [AUTOMATIC1111](https://github.com/AUTOMATIC1111/stable-diffusion-webui), [regional-prompter](https://github.com/hako-mikan/sd-webui-regional-prompter), [SAM](https://github.com/facebookresearch/segment-anything)
+Our RPG is a general MLLM-controlled text-to-image generation/editing framework, which is builded upon several solid works. Thanks to [AUTOMATIC1111](https://github.com/AUTOMATIC1111/stable-diffusion-webui), [regional-prompter](https://github.com/hako-mikan/sd-webui-regional-prompter), [SAM](https://github.com/facebookresearch/segment-anything), [diffusers](https://github.com/huggingface/diffusers)
 and [IA](https://github.com/geekyutao/Inpaint-Anything) for their wonderful work and codebase! We also thank Hugging Face for sharing our [paper](https://huggingface.co/papers/2401.11708). 
