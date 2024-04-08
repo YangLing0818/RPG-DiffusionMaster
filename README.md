@@ -197,7 +197,7 @@ We now support [diffusers](https://github.com/huggingface/diffusers), and we wil
 For individuals equipped with constrained computational resources, we here provide a simple notebook demonstration that partitions the image into two equal-sized subregions. By making minor alterations to select functions within the diffusers library, one may achieve commendable outcomes utilizing base diffusion models such as SD v1.4, v1.5, v2.0, and v2.1, as mentioned in our paper. Additionally, you can apply your customized configurations to experiment with a graphics card possessing 8GB of VRAM. For an in-depth exposition, kindly refer to our [Example_Notebook](RegionalDiffusion_playground.ipynb).
 
 #### **2. Regional Diffusion with GPT-4**
-Our method can automatically generates output without pre-storing MLLM responses, leveraging Chain-of-Thought reasoning and high-quality in-context examples to obtain satisfactory results. Users only need to specify some parameters. For example, to use GPT-4 as the region planner, we can run the code below, contained in the [RPG.py](RPG.py):
+Our method can automatically generates output without pre-storing MLLM responses, leveraging Chain-of-Thought reasoning and high-quality in-context examples to obtain satisfactory results. Users only need to specify some parameters. For example, to use GPT-4 as the region planner, we can refer to the code below, contained in the [RPG.py](RPG.py):
 
 ```python
 from RegionalDiffusion_base import RegionalDiffusionPipeline
@@ -325,7 +325,7 @@ It's important to know when should we use **base_prompt**, if these parameters a
 
 #### **3. Regional Diffusion with local LLMs**
 
-We recommend to use base models with over 13 billion parameters for high-quality results, but it will increase load times and graphical memory use at the same time. We have conducted experiments on three different sized models,  Here we take llama2-13b-chat as an example, we can run:
+We recommend to use base models with over 13 billion parameters for high-quality results, but it will increase load times and graphical memory use at the same time. We have conducted experiments with three different sized models. Here we take llama2-13b-chat as an example:
 
 ```bash
 from RegionalDiffusion_base import RegionalDiffusionPipeline
