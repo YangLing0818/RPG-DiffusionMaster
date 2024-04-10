@@ -197,7 +197,7 @@ We now support [diffusers](https://github.com/huggingface/diffusers), and we wil
 For individuals equipped with constrained computational resources, we here provide a simple notebook demonstration that partitions the image into two equal-sized subregions. By making minor alterations to select functions within the diffusers library, one may achieve commendable outcomes utilizing base diffusion models such as SD v1.4, v1.5, v2.0, and v2.1, as mentioned in our paper. Additionally, you can apply your customized configurations to experiment with a graphics card possessing 8GB of VRAM. For an in-depth exposition, kindly refer to our [Example_Notebook](RegionalDiffusion_playground.ipynb).
 
 #### **2. Regional Diffusion with GPT-4**
-Our method can automatically generates output without pre-storing MLLM responses, leveraging Chain-of-Thought reasoning and high-quality in-context examples to obtain satisfactory results. Users only need to specify some parameters. For example, to use GPT-4 as the region planner, we can refer to the code below, contained in the [RPG.py](RPG.py) ( **It should be noted that we have two pipelines which support different model architectures, for SD v1.4/1.5/2.0/2.1 models, you should use RegionalDiffusionPipeline, for SDXL models, you should use RegionalDiffusionXLPipeline!** ):
+Our method can automatically generates output without pre-storing MLLM responses, leveraging Chain-of-Thought reasoning and high-quality in-context examples to obtain satisfactory results. Users only need to specify some parameters. For example, to use GPT-4 as the region planner, we can refer to the code below, contained in the [RPG.py](RPG.py) ( **Please note that we have two pipelines which support different model architectures, for SD v1.4/1.5/2.0/2.1 models, you should use RegionalDiffusionPipeline, for SDXL models, you should use RegionalDiffusionXLPipeline.** ):
 
 ```python
 from RegionalDiffusion_base import RegionalDiffusionPipeline
@@ -205,9 +205,9 @@ from RegionalDiffusion_xl import RegionalDiffusionXLPipeline
 from diffusers.schedulers import KarrasDiffusionSchedulers,DPMSolverMultistepScheduler
 from mllm import local_llm,GPT4
 import torch
-# If you want to use single ckpt, use this pipeline, remeber to set the path to your ckpt
+# If you want to load ckpt, initialize with ".from_single_file".
 pipe = RegionalDiffusionXLPipeline.from_single_file("path to your ckpt",torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
-# If you want to use diffusers, use this pipeline, remeber to set the path to your diffusers
+# If you want to use diffusers, initialize with ".from_pretrained".
 # pipe = RegionalDiffusionXLPipeline.from_pretrained("path to your diffusers",torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
 pipe.to("cuda")
 pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config,use_karras_sigmas=True)
@@ -281,9 +281,9 @@ from RegionalDiffusion_xl import RegionalDiffusionXLPipeline
 from diffusers.schedulers import KarrasDiffusionSchedulers,DPMSolverMultistepScheduler
 from mllm import local_llm,GPT4
 import torch
-# If you want to use single ckpt, use this pipeline, remeber to set the path to your ckpt
+# If you want to load ckpt, initialize with ".from_single_file".
 pipe = RegionalDiffusionXLPipeline.from_single_file("path to your ckpt",torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
-# #If you want to use diffusers, use this pipeline, remeber to set the path to your diffusers
+# #If you want to use diffusers, initialize with ".from_pretrained".
 # pipe = RegionalDiffusionXLPipeline.from_pretrained("path to your diffusers",torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
 pipe.to("cuda")
 pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config,use_karras_sigmas=True)
