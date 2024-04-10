@@ -253,7 +253,7 @@ It should be noted that we introduce some important parameters: **base_prompt & 
 
 After adding your **prompt and api-key**, and setting your **path to downloaded diffusion model**, just run the following command and get the results:
 
-```
+```bash
 python RPG.py
 ```
 
@@ -275,9 +275,9 @@ And you will get an image similar to ours results as long as we have the same ra
 
 On the other hand, when it comes to an image including **multiple  entities  with different classes**, there is no need to use base prompt, here is an example:
 
-```bash
-from RegionalDiffusion_base import RegionalDiffusionPipeline # base model means sdv1.4/sdv1.5/sdv2.1
-from RegionalDiffusion_xl import RegionalDiffusionXLPipeline #XL model means sdxl/sdxl-turbo
+```python
+from RegionalDiffusion_base import RegionalDiffusionPipeline
+from RegionalDiffusion_xl import RegionalDiffusionXLPipeline 
 from diffusers.schedulers import KarrasDiffusionSchedulers,DPMSolverMultistepScheduler
 from mllm import local_llm,GPT4
 import torch
@@ -327,7 +327,7 @@ It's important to know when should we use **base_prompt**, if these parameters a
 
 We recommend to use base models with over 13 billion parameters for high-quality results, but it will increase load times and graphical memory use at the same time. We have conducted experiments with three different sized models. Here we take llama2-13b-chat as an example:
 
-```bash
+```python
 from RegionalDiffusion_base import RegionalDiffusionPipeline
 from RegionalDiffusion_xl import RegionalDiffusionXLPipeline
 from diffusers.schedulers import KarrasDiffusionSchedulers,DPMSolverMultistepScheduler
