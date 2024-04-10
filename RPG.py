@@ -3,10 +3,10 @@ from RegionalDiffusion_xl import RegionalDiffusionXLPipeline
 from diffusers.schedulers import KarrasDiffusionSchedulers,DPMSolverMultistepScheduler
 from mllm import local_llm,GPT4
 import torch
-# If you want to use single ckpt, use this pipeline, remeber to set the path to your ckpt
-pipe = RegionalDiffusionXLPipeline.from_single_file("path to your ckpt",torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
-# If you want to use diffusers, use this pipeline, remeber to set the path to your diffusers
-#pipe = RegionalDiffusionPipeline.from_pretrained("path to your diffusers",torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
+# If you want to use load ckpt, initialize with ".from_single_file". 
+pipe = RegionalDiffusionXLPipeline.from_single_file("path to your ckpt", torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
+# If you want to use diffusers, initialize with ".from_pretrained".
+# pipe = RegionalDiffusionXLPipeline.from_pretrained("path to your diffusers",torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
 pipe.to("cuda")
 pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config,use_karras_sigmas=True)
 pipe.enable_xformers_memory_efficient_attention()
