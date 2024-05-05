@@ -1,6 +1,6 @@
-## Mastering Text-to-Image Diffusion: Recaptioning, Planning, and Generating with Multimodal LLMs
+## Mastering Text-to-Image Diffusion: Recaptioning, Planning, and Generating with Multimodal LLMs - ICML 2024
 
-This repository contains the official implementation of our [RPG](https://arxiv.org/abs/2401.11708).
+This repository contains the official implementation of our [RPG](https://arxiv.org/abs/2401.11708), accepted by ICML 2024.
 
 > [**Mastering Text-to-Image Diffusion: Recaptioning, Planning, and Generating with Multimodal LLMs**](https://arxiv.org/abs/2401.11708)   
 > [Ling Yang](https://yangling0818.github.io/), 
