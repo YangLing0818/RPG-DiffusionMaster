@@ -370,10 +370,10 @@ python RPG.py
 
 # 📖BibTeX
 ```
-@article{yang2024mastering,
+@inproceedings{yang2024mastering,
   title={Mastering Text-to-Image Diffusion: Recaptioning, Planning, and Generating with Multimodal LLMs},
   author={Yang, Ling and Yu, Zhaochen and Meng, Chenlin and Xu, Minkai and Ermon, Stefano and Cui, Bin},
-  journal={arXiv preprint arXiv:2401.11708},
+  booktitle={International Conference on Machine Learning},
   year={2024}
 }
 ```
