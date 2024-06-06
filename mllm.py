@@ -65,14 +65,14 @@ def local_llm(prompt,version,model_path=None):
 
 def get_params_dict(output_text):
     response = output_text
-    # 使用正则表达式查找Final split ratio
+    # Find Final split ratio
     split_ratio_match = re.search(r"Final split ratio: ([\d.,;]+)", response)
     if split_ratio_match:
         final_split_ratio = split_ratio_match.group(1)
         print("Final split ratio:", final_split_ratio)
     else:
         print("Final split ratio not found.")
-    # 使用正则表达式查找Regional Prompt，使用re.DOTALL来匹配换行符
+    # Find Regioanl Prompt
     prompt_match = re.search(r"Regional Prompt: (.*?)(?=\n\n|\Z)", response, re.DOTALL)
     if prompt_match:
         regional_prompt = prompt_match.group(1).strip()
