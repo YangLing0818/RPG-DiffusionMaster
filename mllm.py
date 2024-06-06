@@ -19,7 +19,7 @@ def GPT4(prompt,key):
     textprompt= f"{' '.join(template)} \n {user_textprompt}"
     
     payload = json.dumps({
-    "model": "gpt-4-1106-preview", # we suggest to use the latest version of GPT, you can also use gpt-4-vision-preivew, see https://platform.openai.com/docs/models/ for details. 
+    "model": "gpt-4o", # we suggest to use the latest version of GPT, you can also use gpt-4-vision-preivew, see https://platform.openai.com/docs/models/ for details. 
     "messages": [
         {
             "role": "user",
