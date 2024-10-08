@@ -45,14 +45,6 @@ This repository contains the official implementation of our [RPG](https://openre
 
 **[2024.4]** Our codebase has been updated based on [diffusers](https://github.com/huggingface/diffusers), it now supports both ckpts and diffusers of diffusion models. As for diffusion backbones, one can use **RegionalDiffusionPipeline** for base models like **SD v2.0/2.1** **SD v1.4/1.5**, and use **RegionalDiffusionXLPipeline** for SDXL.
 
-## TODO
-
-- [ ] Update Gradio Demo
-- [ ] Release Self-Refined RPG
-- [ ] Release RPG for Image Editing
-- [ ] Release RPG v3 with ControlNet
-- [x] Release RPG v2 with the support of diffusers
-- [x] Release RPG v1
 
 ## Gallery
 
@@ -185,9 +177,8 @@ To attain SOTA generative capabilities, we mainly employ [SDXL](https://huggingf
 
 We recommend the utilization of GPT-4 or Gemini-Pro for users of Multilingual Large Language Models (MLLMs), as they not only exhibit superior performance but also reduce local memory. According to our experiments, the minimum requirements of VRAM is 10GB with GPT-4, if you want to use local LLM, it would need more VRAM. For those interested in using MLLMs locally, we suggest deploying [miniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4) or directly engaging with substantial Local LLMs such as [Llama2-13b-chat](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) and  [Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf). 
 
-**⭐⭐⭐New Features⭐⭐⭐**
 
-We now support [diffusers](https://github.com/huggingface/diffusers), and we will continue to update our method with different architectures like [Stable Cascade](https://github.com/Stability-AI/StableCascade), [Stable Diffusion 3](https://stability.ai/news/stable-diffusion-3). 
+
 
 
 ## Text-to-Image Generation
