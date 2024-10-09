@@ -45,6 +45,12 @@ This repository contains the official implementation of our [RPG](https://openre
 
 **[2024.4]** Our codebase has been updated based on [diffusers](https://github.com/huggingface/diffusers), it now supports both ckpts and diffusers of diffusion models. As for diffusion backbones, one can use **RegionalDiffusionPipeline** for base models like **SD v2.0/2.1** **SD v1.4/1.5**, and use **RegionalDiffusionXLPipeline** for SDXL.
 
+**[2024.10]** We enhance RPG by incorporating **a more powerful composition-aware backbone**, [IterComp](https://huggingface.co/comin/IterComp), significantly improving performance on compositional generation **without additional computational costs**. Simply update the model path using the command below to obtain the results:
+
+```
+pipe = RegionalDiffusionXLPipeline.from_pretrained("comin/IterComp",torch_dtype=torch.float16, use_safetensors=True)
+```
+
 
 ## Gallery
 
@@ -156,6 +162,36 @@ Text prompt: Under the clear starry sky, clear river water flows in the mountain
     </tr>
     </table>
 Text prompt: From left to right, an acient Chinese city in spring, summer, autumn and winter in four different regions
+</details>
+### 4. Enhance RPG with **IterComp**.
+
+<details open>
+<summary>1024*1024 Examples</summary> 
+<table class="center">
+    <tr>
+    <td width=50% style="border: none"><img src="__asset__/demo/IterComp/image1.png" style="width:100%"></td>
+    <td width=50% style="border: none"><img src="__asset__/demo/IterComp/image2.png" style="width:100%"></td>
+  <tr>
+    <td width="50%" style="border: none; text-align: left; word-wrap: break-word">A colossal, ancient tree with leaves made of ice towers over a mystical castle. Green trees line both sides, while cascading waterfalls and an ethereal glow adorn the scene. The backdrop features towering mountains and a vibrant, colorful sky.</td>
+    <td width="50%" style="border: none; text-align: left; word-wrap: break-word">On the rooftop of a skyscraper in a bustling cyberpunk city, a figure in a trench coat and neon-lit visor stands amidst a garden of bio-luminescent plants, overlooking the maze of flying cars and towering holograms. Robotic birds flit among the foliage, digital billboards flash advertisements in the distance.</td>
+
+<details open>
+<summary>Compared with RPG</summary> 
+<table class="center" style="width: 100%; border-collapse: collapse;">
+  <tr>
+    <td width="50%" style="border: none; text-align: center; word-wrap: break-word">RPG</td>
+    <td width="50%" style="border: none; text-align: center; word-wrap: break-word">RPG with IterComp</td>
+  </tr>
+  <tr>
+    <td width="50%" style="border: none"><img src="__asset__/demo/IterComp/rpg1.png" style="width:100%"></td>
+    <td width="50%" style="border: none"><img src="__asset__/demo/IterComp/itercomp1.png" style="width:100%"></td>
+  </tr>
+  <tr>
+    <td colspan="2" style="border: none; text-align: left; word-wrap: break-word">
+      Futuristic and prehistoric worlds collide: Dinosaurs roam near a medieval castle, flying cars and advanced skyscrapers dominate the skyline. A river winds through lush greenery, blending ancient and modern civilizations in a surreal landscape.
+    </td>
+  </tr>
+</table>
 </details>
 
 ## Preparations
