@@ -163,7 +163,8 @@ Text prompt: Under the clear starry sky, clear river water flows in the mountain
     </table>
 Text prompt: From left to right, an acient Chinese city in spring, summer, autumn and winter in four different regions
 </details>
-### 4. Enhance RPG with **IterComp**.
+
+### 4. Enhance RPG with IterComp
 
 <details open>
 <summary>1024*1024 Examples</summary> 
@@ -174,7 +175,10 @@ Text prompt: From left to right, an acient Chinese city in spring, summer, autum
   <tr>
     <td width="50%" style="border: none; text-align: left; word-wrap: break-word">A colossal, ancient tree with leaves made of ice towers over a mystical castle. Green trees line both sides, while cascading waterfalls and an ethereal glow adorn the scene. The backdrop features towering mountains and a vibrant, colorful sky.</td>
     <td width="50%" style="border: none; text-align: left; word-wrap: break-word">On the rooftop of a skyscraper in a bustling cyberpunk city, a figure in a trench coat and neon-lit visor stands amidst a garden of bio-luminescent plants, overlooking the maze of flying cars and towering holograms. Robotic birds flit among the foliage, digital billboards flash advertisements in the distance.</td>
-
+</tr>
+</table>
+</details>
+    
 <details open>
 <summary>Compared with RPG</summary> 
 <table class="center" style="width: 100%; border-collapse: collapse;">
