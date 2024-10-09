@@ -45,7 +45,7 @@ This repository contains the official implementation of our [RPG](https://openre
 
 **[2024.4]** Our codebase has been updated based on [diffusers](https://github.com/huggingface/diffusers), it now supports both ckpts and diffusers of diffusion models. As for diffusion backbones, one can use **RegionalDiffusionPipeline** for base models like **SD v2.0/2.1** **SD v1.4/1.5**, and use **RegionalDiffusionXLPipeline** for SDXL.
 
-**[2024.10]** We enhance RPG by incorporating **a more powerful composition-aware backbone**, [IterComp](https://huggingface.co/comin/IterComp), significantly improving performance on compositional generation **without additional computational costs**. Simply update the model path using the command below to obtain the results:
+**[2024.10]** We enhance RPG by incorporating a more powerful **composition-aware backbone**, [IterComp](https://huggingface.co/comin/IterComp), significantly improving performance on compositional generation without additional computational costs. Simply update the model path using the command below to obtain the results:
 
 ```
 pipe = RegionalDiffusionXLPipeline.from_pretrained("comin/IterComp",torch_dtype=torch.float16, use_safetensors=True)
