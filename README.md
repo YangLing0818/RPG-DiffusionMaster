@@ -161,7 +161,7 @@ Text prompt: Under the clear starry sky, clear river water flows in the mountain
     <td style="border: none"><img src="__asset__/demo/Controlnet/Canny_town.png",style="width: 2048px, height: 1024px"></td>
     </tr>
     </table>
-Text prompt: From left to right, an acient Chinese city in spring, summer, autumn and winter in four different regions
+Text prompt: From left to right, an ancient Chinese city in spring, summer, autumn and winter in four different regions
 </details>
 
 ### 4. Enhance RPG with IterComp
