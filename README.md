@@ -1,4 +1,5 @@
 ## Mastering Text-to-Image Diffusion: Recaptioning, Planning, and Generating with Multimodal LLMs - ICML 2024
+<a href="https://trendshift.io/repositories/7230" target="_blank"><img src="https://trendshift.io/api/badge/repositories/7230" alt="YangLing0818%2FRPG-DiffusionMaster | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
 This repository contains the official implementation of our [RPG](https://openreview.net/forum?id=DgLFkAPwuZ), accepted by ICML 2024.
 
