@@ -42,15 +42,118 @@ This repository contains the official implementation of our [RPG](https://openre
 
 ## 🚩 New Updates 
 
-**[2024.1]** Our main code along with the demo release, supporting different diffusion backbones (**SDXL**, **SD v2.0/2.1** **SD v1.4/1.5**), and one can reproduce our good results utilizing GPT-4 and Gemini-Pro. Our RPG is also compatible with local MLLMs, and we will continue to improve the results in the future.
-
-**[2024.4]** Our codebase has been updated based on [diffusers](https://github.com/huggingface/diffusers), it now supports both ckpts and diffusers of diffusion models. As for diffusion backbones, one can use **RegionalDiffusionPipeline** for base models like **SD v2.0/2.1** **SD v1.4/1.5**, and use **RegionalDiffusionXLPipeline** for SDXL.
+**[2025.2]** We enhance RPG with LLMs that possess the strongest reasoning capabilities, including [**DeepSeek-R1**](https://github.com/deepseek-ai/DeepSeek-R1), [**OpenAI o3-mini**](https://openai.com/index/openai-o3-mini/), and [**OpenAI o1**](https://openai.com/index/learning-to-reason-with-llms/), and leverage the powerful diffusion backbone [**IterComp**](https://github.com/YangLing0818/IterComp), to achieve outstanding compositional image generation under complex prompts.
 
 **[2024.10]** We enhance RPG by incorporating a more powerful **composition-aware backbone**, [IterComp](https://arxiv.org/abs/2410.07171), significantly improving performance on compositional generation without additional computational costs. Simply update the model path using the command below to obtain the results:
 
 ```
 pipe = RegionalDiffusionXLPipeline.from_pretrained("comin/IterComp",torch_dtype=torch.float16, use_safetensors=True)
 ```
+
+**[2024.4]** Our codebase has been updated based on [diffusers](https://github.com/huggingface/diffusers), it now supports both ckpts and diffusers of diffusion models. As for diffusion backbones, one can use **RegionalDiffusionPipeline** for base models like **SD v2.0/2.1** **SD v1.4/1.5**, and use **RegionalDiffusionXLPipeline** for SDXL.
+
+**[2024.1]** Our main code along with the demo release, supporting different diffusion backbones (**SDXL**, **SD v2.0/2.1** **SD v1.4/1.5**), and one can reproduce our good results utilizing GPT-4 and Gemini-Pro. Our RPG is also compatible with local MLLMs, and we will continue to improve the results in the future.
+
+## New Features of RPG
+
+### 🔥🔥🔥News: Enhance RPG's regional planning with DeepSeek-R1, o3-mini and o1
+
+<details open>
+<summary>2048*1024 Examples</summary>
+<table class="center" style="width: 100%; border-collapse: collapse;">
+<tr>
+<td colspan="2" style="border: none; text-align: center;">DeepSeek-R1</td>
+</tr>
+<tr>
+<td colspan="2" style="border: none">
+<img src="__asset__/demo/new_llms/prompt1_deepseekr1.png" style="width:100%; height: auto">
+</td>
+</tr>
+<tr>
+<td width="50%" style="border: none; text-align: center;">OpenAI o3-mini</td>
+<td width="50%" style="border: none; text-align: center;">OpenAI o1</td>
+</tr>
+<tr>
+<td style="border: none">
+<img src="__asset__/demo/new_llms/prompt1_openaio3mini.png" style="width:100%; height: auto">
+</td>
+<td style="border: none">
+<img src="__asset__/demo/new_llms/prompt1_openaio1.png" style="width:100%; height: auto">
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border: none; text-align: left; padding: 10px">
+A surreal dreamscape where the sky is split into day and night. On the left side, a bright sun shines over golden fields with people flying kites, while on the right side, a deep blue night sky is filled with stars and glowing jellyfish floating in the air. In the center, a giant clock tower stands, with its hands pointing to different times for each side. A person wearing a half-day, half-night cloak is walking down the path that separates the two worlds.
+</td>
+</tr>
+</table>
+</details>
+
+<details open>
+<summary>1024*1024 Examples</summary> 
+<table class="center" style="width: 100%; border-collapse: collapse;">
+  <tr>
+    <td width="33%" style="border: none; text-align: center; word-wrap: break-word">DeepSeek-R1</td>
+    <td width="33%" style="border: none; text-align: center; word-wrap: break-word">OpenAI o3-mini</td>
+    <td width="33%" style="border: none; text-align: center; word-wrap: break-word">OpenAI o1</td>
+  </tr>
+  <tr>
+    <td width="33%" style="border: none"><img src="__asset__/demo/new_llms/prompt2_deepseekr1.png" style="width:100%"></td>
+    <td width="33%" style="border: none"><img src="__asset__/demo/new_llms/prompt2_openaio3mini.png" style="width:100%"></td>
+    <td width="33%" style="border: none"><img src="__asset__/demo/new_llms/prompt2_openaio1.png" style="width:100%"></td>
+  </tr>
+  <tr>
+    <td colspan="3" style="border: none; text-align: left; word-wrap: break-word">
+      A floating city above the clouds, with golden towers and waterfalls cascading into the mist below. A dragon with shimmering wings soars through the sky, while airships dock at crystal platforms.
+    </td>
+  </tr>
+  <tr>
+    <td width="33%" style="border: none"><img src="__asset__/demo/new_llms/prompt3_deepseekr1.png" style="width:100%"></td>
+    <td width="33%" style="border: none"><img src="__asset__/demo/new_llms/prompt3_openaio3mini.png" style="width:100%"></td>
+    <td width="33%" style="border: none"><img src="__asset__/demo/new_llms/prompt3_openaio1.png" style="width:100%"></td>
+  </tr>
+  <tr>
+    <td colspan="3" style="border: none; text-align: left; word-wrap: break-word">
+      A cozy winter cabin in a snowy forest at night. Warm yellow lights glow from the windows, and smoke gently rises from the chimney. A deer stands near the trees, watching as a child builds a snowman. In the sky, the northern lights shimmer above the treetops.
+    </td>
+  </tr>
+</table>
+</details>
+
+We recommend using [**DeepSeek-R1**](https://github.com/deepseek-ai/DeepSeek-R1) as the regional planner and [**IterComp**](https://github.com/YangLing0818/IterComp) as the base diffusion model to achieve the state-of-the-art compositional text-to-image generation results.
+
+### Enhance RPG with IterComp
+
+<details open>
+<summary>1024*1024 Examples</summary> 
+<table class="center">
+    <tr>
+    <td width=50% style="border: none"><img src="__asset__/demo/IterComp/image1.png" style="width:100%"></td>
+    <td width=50% style="border: none"><img src="__asset__/demo/IterComp/image2.png" style="width:100%"></td>
+  <tr>
+    <td width="50%" style="border: none; text-align: left; word-wrap: break-word">A colossal, ancient tree with leaves made of ice towers over a mystical castle. Green trees line both sides, while cascading waterfalls and an ethereal glow adorn the scene. The backdrop features towering mountains and a vibrant, colorful sky.</td>
+    <td width="50%" style="border: none; text-align: left; word-wrap: break-word">On the rooftop of a skyscraper in a bustling cyberpunk city, a figure in a trench coat and neon-lit visor stands amidst a garden of bio-luminescent plants, overlooking the maze of flying cars and towering holograms. Robotic birds flit among the foliage, digital billboards flash advertisements in the distance.</td>
+</tr>
+</table>
+</details>
+<details open>
+<summary>Compared with RPG</summary> 
+<table class="center" style="width: 100%; border-collapse: collapse;">
+  <tr>
+    <td width="50%" style="border: none; text-align: center; word-wrap: break-word">RPG</td>
+    <td width="50%" style="border: none; text-align: center; word-wrap: break-word">RPG with IterComp</td>
+  </tr>
+  <tr>
+    <td width="50%" style="border: none"><img src="__asset__/demo/IterComp/rpg1.png" style="width:100%"></td>
+    <td width="50%" style="border: none"><img src="__asset__/demo/IterComp/itercomp1.png" style="width:100%"></td>
+  </tr>
+  <tr>
+    <td colspan="2" style="border: none; text-align: left; word-wrap: break-word">
+      Futuristic and prehistoric worlds collide: Dinosaurs roam near a medieval castle, flying cars and advanced skyscrapers dominate the skyline. A river winds through lush greenery, blending ancient and modern civilizations in a surreal landscape.
+    </td>
+  </tr>
+</table>
+</details>
 
 
 ## Gallery
@@ -165,40 +268,6 @@ Text prompt: Under the clear starry sky, clear river water flows in the mountain
 Text prompt: From left to right, an acient Chinese city in spring, summer, autumn and winter in four different regions
 </details>
 
-### 4. Enhance RPG with IterComp
-
-<details open>
-<summary>1024*1024 Examples</summary> 
-<table class="center">
-    <tr>
-    <td width=50% style="border: none"><img src="__asset__/demo/IterComp/image1.png" style="width:100%"></td>
-    <td width=50% style="border: none"><img src="__asset__/demo/IterComp/image2.png" style="width:100%"></td>
-  <tr>
-    <td width="50%" style="border: none; text-align: left; word-wrap: break-word">A colossal, ancient tree with leaves made of ice towers over a mystical castle. Green trees line both sides, while cascading waterfalls and an ethereal glow adorn the scene. The backdrop features towering mountains and a vibrant, colorful sky.</td>
-    <td width="50%" style="border: none; text-align: left; word-wrap: break-word">On the rooftop of a skyscraper in a bustling cyberpunk city, a figure in a trench coat and neon-lit visor stands amidst a garden of bio-luminescent plants, overlooking the maze of flying cars and towering holograms. Robotic birds flit among the foliage, digital billboards flash advertisements in the distance.</td>
-</tr>
-</table>
-</details>
-    
-<details open>
-<summary>Compared with RPG</summary> 
-<table class="center" style="width: 100%; border-collapse: collapse;">
-  <tr>
-    <td width="50%" style="border: none; text-align: center; word-wrap: break-word">RPG</td>
-    <td width="50%" style="border: none; text-align: center; word-wrap: break-word">RPG with IterComp</td>
-  </tr>
-  <tr>
-    <td width="50%" style="border: none"><img src="__asset__/demo/IterComp/rpg1.png" style="width:100%"></td>
-    <td width="50%" style="border: none"><img src="__asset__/demo/IterComp/itercomp1.png" style="width:100%"></td>
-  </tr>
-  <tr>
-    <td colspan="2" style="border: none; text-align: left; word-wrap: break-word">
-      Futuristic and prehistoric worlds collide: Dinosaurs roam near a medieval castle, flying cars and advanced skyscrapers dominate the skyline. A river winds through lush greenery, blending ancient and modern civilizations in a surreal landscape.
-    </td>
-  </tr>
-</table>
-</details>
-
 ## Preparations
 
 **1. Set Environment**
@@ -217,10 +286,6 @@ git clone https://github.com/huggingface/diffusers
 To attain SOTA generative capabilities, we mainly employ [SDXL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0),  [SDXL-Turbo](https://huggingface.co/stabilityai/sdxl-turbo), and [Playground v2](https://huggingface.co/playgroundai/playground-v2-1024px-aesthetic) as our base diffusion. To generate images of high fidelity across various styles, such as photorealism, cartoons, and anime, we incorporate the models from [CIVITA](https://civitai.com/).  For images aspiring to photorealism, we advocate the use of [AlbedoBase XL](https://civitai.com/models/140737/albedobase-xl?modelVersionId=281176) , and [DreamShaper XL](https://civitai.com/models/112902/dreamshaper-xl?modelVersionId=251662). Moreover, we generalize our paradigm to SD v1.5 and SD v2.1. All checkpoints are accessible within our [Hugging Face spaces](https://huggingface.co/BitStarWalkin/RPG_models), with detailed descriptions. 
 
 We recommend the utilization of GPT-4 or Gemini-Pro for users of Multilingual Large Language Models (MLLMs), as they not only exhibit superior performance but also reduce local memory. According to our experiments, the minimum requirements of VRAM is 10GB with GPT-4, if you want to use local LLM, it would need more VRAM. For those interested in using MLLMs locally, we suggest deploying [miniGPT-4](https://github.com/Vision-CAIR/MiniGPT-4) or directly engaging with substantial Local LLMs such as [Llama2-13b-chat](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf) and  [Llama2-70b-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf). 
-
-
-
-
 
 ## Text-to-Image Generation
 
